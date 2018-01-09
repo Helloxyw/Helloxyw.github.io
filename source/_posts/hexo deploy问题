@@ -1,0 +1,36 @@
+## 3.0为什么运行hexo deploy报错
+
+![Loading](http://7xta11.com1.z0.glb.clouddn.com/2.jpg)
+
+### 本地的博客部署到`github`上,在博客配置文件_config.yml中,有  个deployment一节,在这边我们进行github pages 的配置
+    # Deployment
+    ## Docs: http://hexo.io/docs/deployment.html
+    deploy:
+    type: git #注意,这边是git不是github,hexo 3.0以后就要求使用git,不然会出现deploy失败情况.
+    repo: git@github.com:Helloxyw/Helloxyw.github.io.git
+    branch: master
+
+### 配置好了之后,把我们博客`deploy`到`github`上
+    $hexo clean
+    $hexo generate
+    $hexo deploy
+
+### 结果在 `hexo deploy`时报错，提示
+
+    ERROR Deployer not found: git
+
+### 解决方法是安装`hexo-deployer-git`，同时用`hexo version`查看到我本地`hexo`的版本是
+
+    hexo: 3.2.0
+    hexo-cli: 1.0.1
+    os: Linux 4.2.0-35-generic linux x64
+    http_parser: 2.5.2
+    node: 4.4.3
+    v8: 4.5.103.35
+    uv: 1.8.0
+    zlib: 1.2.8
+    ares: 1.10.1-DEV
+    icu: 56.1
+    modules: 46
+    openssl: 1.0.2g
+### 同时需要注意的是在`_config.yml`中`deployment`这一节有个`type`属性,而`hexo`在3.0之后，`type`属性就要求是`git`而不是`github` 否则`hexo deploy`会报错
