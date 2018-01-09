@@ -2,14 +2,13 @@
 title: Git使用ssh密钥
 date: 2016-09-13 19:59:53
 tags: Git
----
-
-# Git使用ssh密钥
-
-![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMBxP56GfB_bGbS236FRYFk3JYmC8I9oA1-VSk9HykZVYQJJGG5_BFIg-I)
+---	
 
 
-标签（空格分隔）： Git ssh
+
+![](https://desk-fd.zol-img.com.cn/t_s1440x900c5/g5/M00/06/0B/ChMkJllkKMeIJ6CSAAdGdB9XHNIAAeWIAJf87AAB0aM436.jpg)
+
+<!--more-->
 
 ---
 <b>

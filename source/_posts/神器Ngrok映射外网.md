@@ -1,10 +1,15 @@
-﻿# 神器Ngrok映射外网
-
-标签（空格分隔）： Ngrok 网站
-
+---
+title: Ngrok神器映射外网
+date: 2016-09-20 19:59:53
+tags: Ngrok
 ---
 
+
 <b>ngrok 服务可以分配给你一个域名让你本地的web项目提供给外网访问，特别适合向别人展示你本机的web demo 以及调试一些远程的API (比如微信公众号，企业号的开发) </b>
+
+<img src="https://desk-fd.zol-img.com.cn/t_s1440x900c5/g5/M00/06/0B/ChMkJ1lkKOSIMAebABMY8g_U_F0AAeWIQDF5hoAExkK642.jpg">
+
+<!--more-->
 ## 具体步骤 ##
 
  - 下载linux版本的客户端，解压到你喜欢的目录,注意：要给ngrok文件的可执行权限[Ubuntu 64 位下载地址][1]
