@@ -43,7 +43,7 @@
 <strong>在打开的文本编辑器末尾换行添加如下内容：(部分内容在安装时可能已经自动配置好了)</strong>
 
 
-    export JAVA_HOME=/usr/local/lib/jdk1.8.0_73
+    export JAVA_HOME=/usr/lib/jvm/java-8-oracle
     export JRE_HOME=${JAVA_HOME}/jre
     export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
     export PATH=${JAVA_HOME}/bin:$PATH
