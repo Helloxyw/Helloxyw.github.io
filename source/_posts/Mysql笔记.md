@@ -1,15 +1,24 @@
-<h1>MySQL笔记</h1>
+---
+title: Mysql 笔记
+date: 2016-12-20 19:59:53
+tags: Mysql
+---
+
 
 <h4>外键(foreign key)</h4>
+
 定义:如果一个实体的某个字段指向另一个实体的主键,这个字段就是这个实体的外键.
 
 &nbsp;&nbsp;被指向的实体，称之为主实体(主表),也叫父实体(父表).
 &nbsp;&nbsp;负责指向的实体，称之为从实体(从表),也叫子实体(子表).
+
+
 <center>
-![](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1489769592034&di=c136cbbf1dd4b1bcb1c2ba6ddebbfdd0&imgtype=0&src=http%3A%2F%2Fwww.ablanxue.com%2Fedit%2Fattached%2Fimage%2F20140605%2F20140605125652_598.png)
+![](https://desk-fd.zol-img.com.cn/t_s1366x768c5/g5/M00/02/08/ChMkJ1bKzWGIGD1xAAlbi8UmgHEAALJAQMblhoACVuj729.jpg)
 </center>
 
-<!--more-->
+ <!--more-->
+ 
 <h4>一 : 外键约束</h4>
 
  MySQL通过外键约束来保证表与表之间的数据的`完整性`和`准确性`。

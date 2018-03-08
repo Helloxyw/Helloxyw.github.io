@@ -1,8 +1,18 @@
-# Ubuntu16.04下安装配置jdk
+---
+title: Ubuntu下安装java
+date: 2015-09-20 19:59:53
+tags: Java
+---
+
 ### 1.通过ppa(源) 方式安装.
 <b>这里推荐第1种,因为可以通过 `apt-get upgrade` 方式方便获得jdk的升级</b>
 
 <h4>在我们继续了解如何安装Java之前，让我们快速地了解`JRE、OpenJDK`和`Oracle JDK`之间的不同之处。</h4>
+
+
+
+<img src="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g5/M00/02/04/ChMkJlpZZLeIGFB8AATf7vf_nYQAAkD4wFg_xEABOAG369.jpg">
+<!--more-->
 
 <h4>`JRE（Java Runtime Environment）`，它是你运行一个基于Java语言应用程序的所正常需要的环境。如果你不是一个程序员的话，这些足够你的需要。</h4>
 

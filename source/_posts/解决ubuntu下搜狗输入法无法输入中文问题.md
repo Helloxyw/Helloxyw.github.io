@@ -1,9 +1,17 @@
-
+---
+title: 解决Ubuntu下搜狗输入法无法输入中文问题
+date: 2016-10-20 19:59:53
+tags: Ubuntu
+---
 
 
 <h1>解决ubuntu16.04下搜狗输入法无法输入中文问题</h1>
 
 今天打开电脑,突然发现一直正常使用的搜狗输入法无法无法输入中文(<b>具体现象是，可以呼出搜狗输入法界面，但是候选词列表无显示</b>).在查阅了别人的博客后解决了这个问题，下面是解决方案.
+
+![](https://desk-fd.zol-img.com.cn/t_s1366x768c5/g5/M00/0D/06/ChMkJ1ojqAGISeb1AAexeXbMtcgAAiwQAPGnzMAB7GR200.jpg)
+
+<!--more-->
 
 我的版本号:
 * OS：`Ubuntu16.04LST`
@@ -14,17 +22,16 @@
 </center>
 <h3>方法一:</h3>
 重启搜狗输入法,看是否有效
-	
-	
-		~$ killall fcitx 
+
+		~$ killall fcitx
 		~$ killall sogou-qinpanel
 		~$ fcitx
 
 <h3>方法二：检查修复安装依赖</h3>
 我本机依赖完好,所以应该不是依赖的问题。但如果刚安装搜狗无法使用,可以尝试下修复依赖.
-	
+
+
 		~$ sudo apt  install -f
-		
 
 <h3>方法三:删除配置文件,重启搜狗</h3>
 ubuntu下搜狗配置文件在~/.config下的3个文件夹内:

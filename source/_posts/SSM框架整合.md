@@ -1,12 +1,24 @@
-<h2> SSM框架整合</h2>
+---
+title: SSM框架整合
+date: 2017-1-10
+tag: SSM
+---
+
+
 ----
 <B>这里的SSM指的是（`Spring-Springmvc-Mybatis`)三大框架</B>
 
 <h4>前言</h4>
+
 &nbsp;&nbsp;&nbsp;&nbsp;我们看招聘信息的时候，经常会看到这一点，需要具备`SSH`(`Struts-Spring-Hibernate`)框架的技能；而且在大部分教学课堂中，也会把`SSH`作为最核心的教学内容。 
 &nbsp;&nbsp;&nbsp;&nbsp;但是，我们在实际应用中发现，`SpringMVC`可以完全替代`Struts`，配合注解的方式，编程非常快捷，而且通过restful风格定义url，让地址看起来非常优雅。 
 &nbsp;&nbsp;&nbsp;&nbsp;另外，`MyBatis`也可以替换`hibernate`，正因为`MyBatis`的半自动特点，我们程序猿可以完全掌控SQL，这会让有数据库经验的程序猿能开发出高效率的SQL语句，而且XML配置管理起来也非常方便。 
 &nbsp;&nbsp;&nbsp;&nbsp;下面我们开始进行SSM框架的整合。
+
+![](https://desk-fd.zol-img.com.cn/t_s1366x768c5/g5/M00/02/08/ChMkJ1bKzWGIJK4PAAfFWxl1L9IAALJAQM0wFQAB8Vz309.jpg)
+
+
+<!--more-->
 
 <h4>介绍</h4>
 在整合之前先介绍一下这三个框架，之前有了解的可以跳过.这里尽量通俗易懂的简单讲解一下。

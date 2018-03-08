@@ -1,4 +1,7 @@
-## Ubuntu下shadowsocks 配合SwitchyOmega科学上网
+---
+title: Ubuntu下shadowsocks 配合SwitchyOmega科学上网
+date: 2017-11-03
+tag: ShadowSocks
 ---
 
 最近重新装起了阔别已久的ubuntu，第一件事当然是科学上网啊。大概需要下面几步
@@ -7,6 +10,9 @@
 
 &nbsp;&nbsp;这里我推荐 <a href="https://jikess.org/">jikess</a>，一个月只需要12大洋，200G代理流量，速度也很客观。自行注册购买，或者也可以先领几十M先体验下。
 
+![](https://desk-fd.zol-img.com.cn/t_s1024x768c5/g5/M00/02/08/ChMkJlbKzWGIZIhdAAQNZj09ufQAALJAQMP9cYABA1-499.jpg)
+
+<!--more-->
 
 ### 2. ubuntu使用shadowsocks
 

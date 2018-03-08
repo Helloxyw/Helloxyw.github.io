@@ -1,6 +1,9 @@
-﻿# JavaWeb三大框架之Hibernate初识
+---
+title: JavaWeb三大框架之Hibernate初识
+date: 2017-1-1
+tag: Hibernate
+---
 
-标签（空格分隔）： Java ssh框架
 
 ---
 
@@ -8,6 +11,9 @@
     `ORM (Object / Relationship Mapping)` : 对象/关系映射
     <p>它的好处是使让习惯于面向对象编程的开发人员少写于底层数据库有关的`sql`语句，方便了程序的维护与修改，及跨平台性。</p>
 
+![](https://desk-fd.zol-img.com.cn/t_s1366x768c5/g5/M00/02/0A/ChMkJ1bKzzSIOgDcAAj_4khgui4AALJSwDm3zIACP_6935.jpg)
+
+<!--more-->
 
 ----------
 

@@ -1,4 +1,10 @@
-# SSH整合过程中遇到的一些问题
+---
+title: SSH整合过程中的问题
+date: 2017-1-13
+tag: SSH
+---
+
+
 ------
 ## 首先介绍下博主的工作环境
 <strong>
@@ -6,6 +12,10 @@
 * IDE: `Myeclispe 2015`
 * Server: `Myeclipse2015`自带的`Myeclipse Tomcat v7.0`
 * 框架版本: `Struts 2.1`  `Spring 4.1` `Hibernate 4.1.4`
+
+![](https://desk-fd.zol-img.com.cn/t_s1366x768c5/g2/M00/01/0E/Cg-4WlU4niOIChfEAAtm0dNCMiIAACHugPmzzsAC2bp782.jpg)
+
+<!--more-->
 
 ## 先介绍下 `SSH` 经典架构（大神请跳过)
 
