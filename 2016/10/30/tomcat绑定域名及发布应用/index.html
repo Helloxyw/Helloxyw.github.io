@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Tomcat,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="RicardoXu博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="我们使用Tomcat发布应用时，默认是绑定在8080端口，这种情况一般在测试后使用。如果应用需要部署到服务器上则需要修改端口为80，并通过域名直接访问。具体如何做呢？  打包应用为war首先打包应用为.war文件，具体步骤为在Myeclipse中点击File-&amp;gt;Export选择web-&amp;gt;war file下一步之后选择要打包的应用，重命名为发布名称，比如test.war确定之后即打包。">
+<meta name="keywords" content="Tomcat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tomcat绑定域名发布应用">
+<meta property="og:url" content="http://yoursite.com/2016/10/30/tomcat绑定域名及发布应用/index.html">
+<meta property="og:site_name" content="RicardoXu博客">
+<meta property="og:description" content="我们使用Tomcat发布应用时，默认是绑定在8080端口，这种情况一般在测试后使用。如果应用需要部署到服务器上则需要修改端口为80，并通过域名直接访问。具体如何做呢？  打包应用为war首先打包应用为.war文件，具体步骤为在Myeclipse中点击File-&amp;gt;Export选择web-&amp;gt;war file下一步之后选择要打包的应用，重命名为发布名称，比如test.war确定之后即打包。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xta11.com1.z0.glb.clouddn.com/ChMkJ1cghZGIbfOAAARV4Pwpv4QAAQsDQJ9YssABFX4485.jpg">
+<meta property="og:image" content="http://7xta11.com1.z0.glb.clouddn.com/1.png">
+<meta property="og:image" content="http://7xta11.com1.z0.glb.clouddn.com/1.png">
+<meta property="og:updated_time" content="2019-05-08T14:23:10.868Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tomcat绑定域名发布应用">
+<meta name="twitter:description" content="我们使用Tomcat发布应用时，默认是绑定在8080端口，这种情况一般在测试后使用。如果应用需要部署到服务器上则需要修改端口为80，并通过域名直接访问。具体如何做呢？  打包应用为war首先打包应用为.war文件，具体步骤为在Myeclipse中点击File-&amp;gt;Export选择web-&amp;gt;war file下一步之后选择要打包的应用，重命名为发布名称，比如test.war确定之后即打包。">
+<meta name="twitter:image" content="http://7xta11.com1.z0.glb.clouddn.com/ChMkJ1cghZGIbfOAAARV4Pwpv4QAAQsDQJ9YssABFX4485.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/10/30/tomcat绑定域名及发布应用/">
+
+
+
+
+
+  <title>Tomcat绑定域名发布应用 | RicardoXu博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">RicardoXu博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/30/tomcat绑定域名及发布应用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RicardoXu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g2/M00/05/05/Cg-4WlVdf2mIQWEzABhFqZtzpSYAAD5OgH-m3MAGEXB992.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RicardoXu博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Tomcat绑定域名发布应用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-30T19:59:53+08:00">
+                2016-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p><b>我们使用<code>Tomcat</code>发布应用时，默认是绑定在<code>8080</code>端口，这种情况一般在测试后使用。如果应用需要部署到服务器上则需要修改端口为<code>80</code>，并通过域名直接访问。具体如何做呢？<br></b></p>
+<p><img src="http://7xta11.com1.z0.glb.clouddn.com/ChMkJ1cghZGIbfOAAARV4Pwpv4QAAQsDQJ9YssABFX4485.jpg" alt></p>
+<h4 id="打包应用为war"><a href="#打包应用为war" class="headerlink" title="打包应用为war"></a>打包应用为war</h4><p><b>首先打包应用为.war文件，具体步骤为在<code>Myeclipse</code>中点击<code>File-&gt;Export</code>选择<code>web-&gt;war file</code>下一步之后选择要打包的应用，重命名为发布名称，比如<code>test.war</code>确定之后即打包。</b></p>
+<a id="more"></a>
+<p><b>我们把War包传到主机上去，放到Tomcat的webapps下，启动tomcat的startup.bat，会自动解压项目；到了这里，还不够。我们只能通过 <a href="http://外网IP:8080/项目名称访问；" target="_blank" rel="noopener">http://外网IP:8080/项目名称访问；</a> (<a href="http://外网IP:8080/项目名称访问；" target="_blank" rel="noopener">http://外网IP:8080/项目名称访问；</a>)</b></p>
+<p><strong>我们现在要干两个事情，第一个是去掉端口，第二个是去掉项目名称。</strong></p>
+<h4 id="配置容器"><a href="#配置容器" class="headerlink" title="配置容器"></a>配置容器</h4><h4>1.这里是在本地调试时的修改，真正部署可以跳过这段，看下个段落</h4>
+
+
+<p>修改tomcat安装目录下的conf下的server.xml</p>
+<blockquote>
+<p>找到Connector节点，将其port改为80后保存，结果如下：</p>
+</blockquote>
+<pre><code>&lt;Connector port=&quot;80&quot; protocol=&quot;HTTP/1.1&quot;
+        connectionTimeout=&quot;20000&quot;
+        redirectPort=&quot;8443&quot; /&gt;
+</code></pre><blockquote>
+<p>绑定域名</p>
+</blockquote>
+<p>这里博主假设域名是<code>testphoto.com</code><em>(注意域名没有大小写之分，就算是大写也会被浏览器解析成小写)</em> 要绑定的项目时WebPhoto</p>
+<p><b>1.首先因为是在本地访问该域名，所以需要修改Hosts文件，ubuntu系统下修改/<code>etc/hosts</code>加上一条记录</b></p>
+<pre><code>127.0.0.1      testphoto.com
+</code></pre><p><b>2.之后修改server.xml文件</b></p>
+<p>  找到 Engine节点,在里面添加一个 Host 节点，Engine其中有一个默认的<code>Hostname=&quot;localhost&quot;</code>的Host 节点，增添的Host节点:</p>
+<pre><code>&lt;Host name=&quot;testphoto.com&quot;   appBase=&quot;webapps&quot;
+      unpackWARs=&quot;true&quot; autoDeploy=&quot;true&quot;&gt;
+
+&lt;/Host&gt;
+</code></pre><p>此时在启动tomcat后，输入绑定的域名<code>testphoto.com</code>就可以看到tomcat了，但是要访问我们的项目，还是要在后面加上项目名称，<br>如<code>testphoto.com/WebPhoto</code></p>
+<p><b>3.绑定项目到域名</b></p>
+<p>  在第二步的基础上，在<host>节点中加入下面的配置</host></p>
+<pre><code>&lt;Context path=&quot;/&quot; docBase=&quot;/opt/tomcat7/webapps/WebPhoto&quot;&gt;
+&lt;/Context&gt;
+</code></pre><p>  <code>docBase</code>是你的应用的绝对路径。</p>
+<h4 id="此时通过testphoto-com就可以访问你的页面了"><a href="#此时通过testphoto-com就可以访问你的页面了" class="headerlink" title="此时通过testphoto.com就可以访问你的页面了"></a>此时通过<code>testphoto.com</code>就可以访问你的页面了</h4><p><img src="http://7xta11.com1.z0.glb.clouddn.com/1.png" alt></p>
+<h4>2.真正部署应用到网上的配置</h4>
+
+<p>  和在本地调试配置步骤一样，只不过这里是在服务器上配置。</p>
+<blockquote>
+<p>修改端口，改成80端口</p>
+</blockquote>
+<pre><code>&lt;Connector port=&quot;80&quot; protocol=&quot;HTTP/1.1&quot;
+        connectionTimeout=&quot;20000&quot;
+        redirectPort=&quot;8443&quot; /&gt;
+</code></pre><blockquote>
+<p>绑定域名</p>
+</blockquote>
+<pre><code>&lt;Host name=&quot;top.pockerface.cn&quot;  appBase=&quot;webapps&quot;
+        unpackWARs=&quot;true&quot; autoDeploy=&quot;true&quot;&gt;
+
+&lt;Context path=&quot;/&quot; docBase=&quot;/opt/tomcat7/webapps/WebPhoto&quot;&gt;&lt;/Context&gt;
+
+&lt;/Host&gt;
+</code></pre><p><b>这里的<code>top.pockerface.cn</code>是博主的二级域名，需要在DNS解析中，解析域名指向你的服务器。</b></p>
+<h4 id="此时通过top-pockerface-cn就可以访问你的页面了"><a href="#此时通过top-pockerface-cn就可以访问你的页面了" class="headerlink" title="此时通过top.pockerface.cn就可以访问你的页面了"></a>此时通过<code>top.pockerface.cn</code>就可以访问你的页面了</h4><p><img src="http://7xta11.com1.z0.glb.clouddn.com/1.png" alt></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Tomcat/" rel="tag"># Tomcat</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/20/解决ubuntu下搜狗输入法无法输入中文问题/" rel="next" title="解决Ubuntu下搜狗输入法无法输入中文问题">
+                <i class="fa fa-chevron-left"></i> 解决Ubuntu下搜狗输入法无法输入中文问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/20/Mysql笔记/" rel="prev" title="Mysql 笔记">
+                Mysql 笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g2/M00/05/05/Cg-4WlVdf2mIQWEzABhFqZtzpSYAAD5OgH-m3MAGEXB992.jpg" alt="RicardoXu">
+            
+              <p class="site-author-name" itemprop="name">RicardoXu</p>
+              <p class="site-description motion-element" itemprop="description">技术博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#打包应用为war"><span class="nav-number">1.</span> <span class="nav-text">打包应用为war</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置容器"><span class="nav-number">2.</span> <span class="nav-text">配置容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">1.这里是在本地调试时的修改，真正部署可以跳过这段，看下个段落</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#此时通过testphoto-com就可以访问你的页面了"><span class="nav-number">4.</span> <span class="nav-text">此时通过testphoto.com就可以访问你的页面了</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">2.真正部署应用到网上的配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#此时通过top-pockerface-cn就可以访问你的页面了"><span class="nav-number">6.</span> <span class="nav-text">此时通过top.pockerface.cn就可以访问你的页面了</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RicardoXu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

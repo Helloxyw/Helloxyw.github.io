@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Mysql,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="RicardoXu博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="外键(foreign key)  定义:如果一个实体的某个字段指向另一个实体的主键,这个字段就是这个实体的外键. &amp;nbsp;&amp;nbsp;被指向的实体，称之为主实体(主表),也叫父实体(父表).&amp;nbsp;&amp;nbsp;负责指向的实体，称之为从实体(从表),也叫子实体(子表).">
+<meta name="keywords" content="Mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql 笔记">
+<meta property="og:url" content="http://yoursite.com/2016/12/20/Mysql笔记/index.html">
+<meta property="og:site_name" content="RicardoXu博客">
+<meta property="og:description" content="外键(foreign key)  定义:如果一个实体的某个字段指向另一个实体的主键,这个字段就是这个实体的外键. &amp;nbsp;&amp;nbsp;被指向的实体，称之为主实体(主表),也叫父实体(父表).&amp;nbsp;&amp;nbsp;负责指向的实体，称之为从实体(从表),也叫子实体(子表).">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g5/M00/02/08/ChMkJ1bKzWGIGD1xAAlbi8UmgHEAALJAQMblhoACVuj729.jpg">
+<meta property="og:updated_time" content="2019-05-08T14:23:10.866Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mysql 笔记">
+<meta name="twitter:description" content="外键(foreign key)  定义:如果一个实体的某个字段指向另一个实体的主键,这个字段就是这个实体的外键. &amp;nbsp;&amp;nbsp;被指向的实体，称之为主实体(主表),也叫父实体(父表).&amp;nbsp;&amp;nbsp;负责指向的实体，称之为从实体(从表),也叫子实体(子表).">
+<meta name="twitter:image" content="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g5/M00/02/08/ChMkJ1bKzWGIGD1xAAlbi8UmgHEAALJAQMblhoACVuj729.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/20/Mysql笔记/">
+
+
+
+
+
+  <title>Mysql 笔记 | RicardoXu博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">RicardoXu博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/20/Mysql笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RicardoXu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g2/M00/05/05/Cg-4WlVdf2mIQWEzABhFqZtzpSYAAD5OgH-m3MAGEXB992.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RicardoXu博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Mysql 笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-20T19:59:53+08:00">
+                2016-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4>外键(foreign key)</h4>
+
+<p>定义:如果一个实体的某个字段指向另一个实体的主键,这个字段就是这个实体的外键.</p>
+<p>&nbsp;&nbsp;被指向的实体，称之为主实体(主表),也叫父实体(父表).<br>&nbsp;&nbsp;负责指向的实体，称之为从实体(从表),也叫子实体(子表).</p>
+<center><br><img src="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g5/M00/02/08/ChMkJ1bKzWGIGD1xAAlbi8UmgHEAALJAQMblhoACVuj729.jpg" alt><br></center>
+
+ <a id="more"></a>
+<h4>一 : 外键约束</h4>
+
+<p> MySQL通过外键约束来保证表与表之间的数据的<code>完整性</code>和<code>准确性</code>。</p>
+ <h4>外键使用条件</h4>
+
+<ul>
+<li><p>两个表必须是InnoDB表，MyISAM表暂时不支持外键（据说以后的版本有可能支持，但至少目前不支持）</p>
+<ul>
+<li><p>外键列必须建立了索引，MySQL 4.1.2以后的版本在建立外键时会自动创建索引，但如果在较早的版本则需要显示建立</p>
+</li>
+<li><p>外键关系的两个表的列必须是数据类型相似，也就是可以相互转换类型的列，比如int和tinyint可以，而int和char则不可以</p>
+</li>
+</ul>
+<p>外键的好处 : 可以使得两张表关联，保证数据的一致性和实现一些级联操作.</p>
+<h4>创建外键语法:</h4>
+
+<p>  [CONSTRAINT [symbol]] FOREIGN KEY<br>[index_name] (index_col_name, …)<br>REFERENCES tbl_name (index_col_name,…)<br>[ON DELETE reference_option]<br>[ON UPDATE reference_option]</p>
+</li>
+</ul>
+<p>例如:</p>
+<pre><code>&lt;!--Blog表  子表--&gt;
+   CREATE TABLE `t_blog` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT &apos;博客类型&apos;,
+  `title` VARCHAR(200) NOT NULL COMMENT &apos;博客题目&apos;,
+  `summary` VARCHAR(400) DEFAULT NULL COMMENT &apos;博客摘要&apos;,
+  `releaseDate` DATETIME DEFAULT NULL COMMENT &apos;发布日期&apos;,
+  `clickHit` INT(11) DEFAULT NULL COMMENT &apos;评论次数&apos;,
+  `replyHit` INT(11) DEFAULT NULL COMMENT &apos;回复次数&apos;,
+  `content` TEXT COMMENT &apos;博客内容&apos;,
+  `keyWord` VARCHAR(200) DEFAULT NULL COMMENT &apos;关键字&apos;,
+  `type_id` INT(11) DEFAULT NULL COMMENT &apos;外键关联博客类别&apos;,
+  PRIMARY KEY (`id`),
+  KEY `type_id` (`type_id`),
+  CONSTRAINT `t_blog_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `t_blogtype` (`id`)   //创建外键
+) ENGINE=INNODB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+
+&lt;!--BlogType表  父表--&gt;
+  CREATE TABLE `t_blogtype` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT &apos;博客id&apos;,
+  `typeName` VARCHAR(30) DEFAULT NULL COMMENT &apos;博客类别&apos;,
+  `orderNum` INT(11) DEFAULT NULL COMMENT &apos;博客排序&apos;,
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+</code></pre><p><b>注意:</b></p>
+<p>&nbsp;&nbsp;如果子表试图创建一个在父表中不存在的外键值，InnoDB会拒绝任何<code>INSERT</code>或<code>UPDATE</code>操作。如果父表试图<code>UPDATE</code>或者<code>DELETE</code>任何子表中存在或匹配的外键值，最终动作取决于外键约束定义中的<code>ON UPDATE</code>和<code>ON DELETE</code>选项。InnoDB支持5种不同的动作，如果没有指定<code>ON DELETE</code>或者<code>ON UPDATE</code>，默认的动作为<code>RESTRICT</code>:</p>
+<ol>
+<li><p><code>CASCADE</code>:从父表中删除或更新对应的行，同时自动的删除或更新子表中匹配的行。<code>ON DELETE CANSCADE</code>和<code>ON UPDATE CANSCADE</code>都被InnoDB所支持。</p>
+<ol>
+<li><p><code>SET NULL</code>: 从父表中删除或更新对应的行，同时将子表中的外键列设为空。注意，这些在外键列没有被设为NOT NULL时才有效。<code>ON DELETE SET NULL</code>和<code>ON UPDATE SET SET NULL</code>都被InnoDB所支持。</p>
+</li>
+<li><p><code>NO ACTION</code>: InnoDB拒绝删除或者更新父表。</p>
+</li>
+<li><p><code>RESTRICT</code>: 拒绝删除或者更新父表。指定RESTRICT（或者NO ACTION）和忽略<code>ON DELETE</code>或者<code>ON UPDATE</code>选项的效果是一样的。</p>
+</li>
+<li><p><code>SET DEFAULT</code>: InnoDB目前不支持。</p>
+</li>
+</ol>
+<p><b>外键约束使用最多的两种情况：</b></p>
+<ol>
+<li>父表更新时子表也更新，父表删除时如果子表有匹配的项，删除失败.</li>
+</ol>
+</li>
+<li><p>父表更新时子表也更新，父表删除时子表匹配的项也删除。</p>
+<p>前一种情况，在外键定义中，我们使用<code>ON UPDATE CASCADE ON DELETE RESTRICT</code>；</p>
+<p>后一种情况，可以使用<code>ON UPDATE CASCADE ON DELETE CASCADE</code>。</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Mysql/" rel="tag"># Mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/30/tomcat绑定域名及发布应用/" rel="next" title="Tomcat绑定域名发布应用">
+                <i class="fa fa-chevron-left"></i> Tomcat绑定域名发布应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/01/JavaWeb三大框架之Hibernate初识/" rel="prev" title="JavaWeb三大框架之Hibernate初识">
+                JavaWeb三大框架之Hibernate初识 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g2/M00/05/05/Cg-4WlVdf2mIQWEzABhFqZtzpSYAAD5OgH-m3MAGEXB992.jpg" alt="RicardoXu">
+            
+              <p class="site-author-name" itemprop="name">RicardoXu</p>
+              <p class="site-description motion-element" itemprop="description">技术博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">外键(foreign key)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">一 : 外键约束</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">外键使用条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">创建外键语法:</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RicardoXu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="RicardoXu博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="1.通过ppa(源) 方式安装.这里推荐第1种,因为可以通过 apt-get upgrade 方式方便获得jdk的升级 在我们继续了解如何安装Java之前，让我们快速地了解JRE、OpenJDK和Oracle JDK之间的不同之处。">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu下安装java">
+<meta property="og:url" content="http://yoursite.com/2015/09/20/Ubuntu下安装jdk两种方式/index.html">
+<meta property="og:site_name" content="RicardoXu博客">
+<meta property="og:description" content="1.通过ppa(源) 方式安装.这里推荐第1种,因为可以通过 apt-get upgrade 方式方便获得jdk的升级 在我们继续了解如何安装Java之前，让我们快速地了解JRE、OpenJDK和Oracle JDK之间的不同之处。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g5/M00/02/04/ChMkJlpZZLeIGFB8AATf7vf_nYQAAkD4wFg_xEABOAG369.jpg">
+<meta property="og:updated_time" content="2019-05-08T14:23:10.867Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu下安装java">
+<meta name="twitter:description" content="1.通过ppa(源) 方式安装.这里推荐第1种,因为可以通过 apt-get upgrade 方式方便获得jdk的升级 在我们继续了解如何安装Java之前，让我们快速地了解JRE、OpenJDK和Oracle JDK之间的不同之处。">
+<meta name="twitter:image" content="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g5/M00/02/04/ChMkJlpZZLeIGFB8AATf7vf_nYQAAkD4wFg_xEABOAG369.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/09/20/Ubuntu下安装jdk两种方式/">
+
+
+
+
+
+  <title>Ubuntu下安装java | RicardoXu博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">RicardoXu博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/09/20/Ubuntu下安装jdk两种方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RicardoXu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g2/M00/05/05/Cg-4WlVdf2mIQWEzABhFqZtzpSYAAD5OgH-m3MAGEXB992.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RicardoXu博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Ubuntu下安装java</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-09-20T19:59:53+08:00">
+                2015-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-通过ppa-源-方式安装"><a href="#1-通过ppa-源-方式安装" class="headerlink" title="1.通过ppa(源) 方式安装."></a>1.通过ppa(源) 方式安装.</h3><p><b>这里推荐第1种,因为可以通过 <code>apt-get upgrade</code> 方式方便获得jdk的升级</b></p>
+<h4>在我们继续了解如何安装Java之前，让我们快速地了解<code>JRE、OpenJDK</code>和<code>Oracle JDK</code>之间的不同之处。</h4>
+
+
+
+<p><img src="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g5/M00/02/04/ChMkJlpZZLeIGFB8AATf7vf_nYQAAkD4wFg_xEABOAG369.jpg"><br><a id="more"></a></p>
+<h4><code>JRE（Java Runtime Environment）</code>，它是你运行一个基于Java语言应用程序的所正常需要的环境。如果你不是一个程序员的话，这些足够你的需要。</h4>
+
+<h4>JDK代表Java开发工具包，如果你想做一些有关Java的开发（阅读程序），这正是你所需要的。</h4>
+
+<h4>OpenJDK是Java开发工具包的开源实现，Oracle JDK是Java开发工具包的官方Oracle版本。尽管OpenJDK已经足够满足大多数的案例，但是许多程序比如Android Studio建议使用Oracle JDK，以避免UI/性能问题。</h4>
+
+<h3 id="检查Java是否已经安装在Ubuntu上"><a href="#检查Java是否已经安装在Ubuntu上" class="headerlink" title="检查Java是否已经安装在Ubuntu上"></a>检查Java是否已经安装在Ubuntu上</h3><p><strong>打开终端输入命令：</strong></p>
+<pre><code>java -version
+</code></pre><p><strong>如果有看到类似以下的输出，则表明你的电脑上已经安装好了JDK，否则就是没有安装：</strong></p>
+<pre><code>java version &quot;1.8.0_73&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_73-b02)
+Java HotSpot(TM) 64-Bit Server VM (build 25.73-b02, mixed mode)
+</code></pre><p><strong>安装Oracle JDK</strong></p>
+<pre><code>sudo add-apt-repository ppa:webupd8team/java
+
+sudo apt-get update
+
+sudo apt-get install oracle-java8-installer
+</code></pre><p><strong>    设置 Java 8 环境变量：</strong></p>
+<pre><code>sudo apt-get install oracle-java8-set-default
+</code></pre><p><strong>此时打开配置文件</strong></p>
+<pre><code>sudo gedit ~/.bashrc
+</code></pre><p><strong>在打开的文本编辑器末尾换行添加如下内容：(部分内容在安装时可能已经自动配置好了)</strong></p>
+<pre><code>export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+export JRE_HOME=${JAVA_HOME}/jre
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+export PATH=${JAVA_HOME}/bin:$PATH
+</code></pre><p><strong>右上角保存后，在终端输入 <code>java -version</code> 或 <code>java</code> 或者<code>javac</code>回车，如果显示了版本信息或者一些帮助信息，则表示配置成功</strong></p>
+<h3 id="2-通过官网下载安装包安装"><a href="#2-通过官网下载安装包安装" class="headerlink" title="2:通过官网下载安装包安装."></a>2:通过官网下载安装包安装.</h3><h4 id="首先去官网下载最新的jdk-8u92-linux-x64-tar-gz"><a href="#首先去官网下载最新的jdk-8u92-linux-x64-tar-gz" class="headerlink" title="首先去官网下载最新的jdk-8u92-linux-x64.tar.gz"></a>首先去<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">官网</a>下载最新的<code>jdk-8u92-linux-x64.tar.gz</code></h4><h4 id="打开终端创建Java目标路径文件"><a href="#打开终端创建Java目标路径文件" class="headerlink" title="打开终端创建Java目标路径文件"></a>打开终端创建Java目标路径文件</h4><pre><code>sudo mkdir /usr/lib/jvm
+</code></pre><h4 id="解压jdk文件到目标文件下"><a href="#解压jdk文件到目标文件下" class="headerlink" title="解压jdk文件到目标文件下"></a>解压jdk文件到目标文件下</h4><pre><code>sudo tar -C /usr/lib/jvm -xzf (你下载的路径)/jdk-8u92-linux-x64.tar.gz
+</code></pre><h4 id="查看本机上是否还有java可选"><a href="#查看本机上是否还有java可选" class="headerlink" title="查看本机上是否还有java可选"></a>查看本机上是否还有java可选</h4><pre><code>sudo update-alternatives --list java
+</code></pre><h4 id="若显示-update-alternatives-错误-无-java-的候选项-则表示系统中没有java可选，可以进行以下步骤"><a href="#若显示-update-alternatives-错误-无-java-的候选项-则表示系统中没有java可选，可以进行以下步骤" class="headerlink" title="若显示   update-alternatives: 错误: 无 java 的候选项  则表示系统中没有java可选，可以进行以下步骤"></a>若显示   <code>update-alternatives: 错误: 无 java 的候选项</code>  则表示系统中没有java可选，可以进行以下步骤</h4><h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><pre><code>sudo gedit ~/.bashrc
+</code></pre><h4 id="在打开的文本编辑器末尾换行添加如下内容："><a href="#在打开的文本编辑器末尾换行添加如下内容：" class="headerlink" title="在打开的文本编辑器末尾换行添加如下内容："></a>在打开的文本编辑器末尾换行添加如下内容：</h4><pre><code>export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_92   
+
+export JRE_HOME=${JAVA_HOME}/jre
+
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+
+export PATH=${JAVA_HOME}/bin:$PATH
+</code></pre><p><strong>右上角保存后，在终端输入 <code>java -version</code> 或 <code>java</code> 或者<code>javac</code>回车，如果显示了版本信息或者一些帮助信息，则表示配置成功</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/20/高并发秒杀项目/" rel="prev" title="高并发秒杀项目">
+                高并发秒杀项目 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g2/M00/05/05/Cg-4WlVdf2mIQWEzABhFqZtzpSYAAD5OgH-m3MAGEXB992.jpg" alt="RicardoXu">
+            
+              <p class="site-author-name" itemprop="name">RicardoXu</p>
+              <p class="site-description motion-element" itemprop="description">技术博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-通过ppa-源-方式安装"><span class="nav-number">1.</span> <span class="nav-text">1.通过ppa(源) 方式安装.</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.</span> <span class="nav-text">在我们继续了解如何安装Java之前，让我们快速地了解JRE、OpenJDK和Oracle JDK之间的不同之处。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.</span> <span class="nav-text">JRE（Java Runtime Environment），它是你运行一个基于Java语言应用程序的所正常需要的环境。如果你不是一个程序员的话，这些足够你的需要。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.3.</span> <span class="nav-text">JDK代表Java开发工具包，如果你想做一些有关Java的开发（阅读程序），这正是你所需要的。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.4.</span> <span class="nav-text">OpenJDK是Java开发工具包的开源实现，Oracle JDK是Java开发工具包的官方Oracle版本。尽管OpenJDK已经足够满足大多数的案例，但是许多程序比如Android Studio建议使用Oracle JDK，以避免UI/性能问题。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查Java是否已经安装在Ubuntu上"><span class="nav-number">2.</span> <span class="nav-text">检查Java是否已经安装在Ubuntu上</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-通过官网下载安装包安装"><span class="nav-number">3.</span> <span class="nav-text">2:通过官网下载安装包安装.</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#首先去官网下载最新的jdk-8u92-linux-x64-tar-gz"><span class="nav-number">3.1.</span> <span class="nav-text">首先去官网下载最新的jdk-8u92-linux-x64.tar.gz</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打开终端创建Java目标路径文件"><span class="nav-number">3.2.</span> <span class="nav-text">打开终端创建Java目标路径文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解压jdk文件到目标文件下"><span class="nav-number">3.3.</span> <span class="nav-text">解压jdk文件到目标文件下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看本机上是否还有java可选"><span class="nav-number">3.4.</span> <span class="nav-text">查看本机上是否还有java可选</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#若显示-update-alternatives-错误-无-java-的候选项-则表示系统中没有java可选，可以进行以下步骤"><span class="nav-number">3.5.</span> <span class="nav-text">若显示   update-alternatives: 错误: 无 java 的候选项  则表示系统中没有java可选，可以进行以下步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置环境变量"><span class="nav-number">3.6.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在打开的文本编辑器末尾换行添加如下内容："><span class="nav-number">3.7.</span> <span class="nav-text">在打开的文本编辑器末尾换行添加如下内容：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RicardoXu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ShadowSocks,">
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="RicardoXu博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="最近重新装起了阔别已久的ubuntu，第一件事当然是科学上网啊。大概需要下面几步 1.一个代理服务账号&amp;nbsp;&amp;nbsp;这里我推荐 jikess，一个月只需要12大洋，200G代理流量，速度也很客观。自行注册购买，或者也可以先领几十M先体验下。">
+<meta name="keywords" content="ShadowSocks">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu下shadowsocks 配合SwitchyOmega科学上网">
+<meta property="og:url" content="http://yoursite.com/2017/11/03/Ubuntu下科学上网/index.html">
+<meta property="og:site_name" content="RicardoXu博客">
+<meta property="og:description" content="最近重新装起了阔别已久的ubuntu，第一件事当然是科学上网啊。大概需要下面几步 1.一个代理服务账号&amp;nbsp;&amp;nbsp;这里我推荐 jikess，一个月只需要12大洋，200G代理流量，速度也很客观。自行注册购买，或者也可以先领几十M先体验下。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://desk-fd.zol-img.com.cn/t_s1024x768c5/g5/M00/02/08/ChMkJlbKzWGIZIhdAAQNZj09ufQAALJAQMP9cYABA1-499.jpg">
+<meta property="og:image" content="http://7xta11.com1.z0.glb.clouddn.com/2018-01-04%2017-03-17%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="http://7xta11.com1.z0.glb.clouddn.com/2018-01-04%2017-11-06%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="http://7xta11.com1.z0.glb.clouddn.com/2018-01-05%2014-28-09%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="http://7xta11.com1.z0.glb.clouddn.com/2018-01-05%2014-32-26%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="http://7xta11.com1.z0.glb.clouddn.com/2018-01-05%2014-35-17%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="http://7xta11.com1.z0.glb.clouddn.com/2018-01-05%2014-37-58%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:updated_time" content="2019-05-08T14:23:10.867Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu下shadowsocks 配合SwitchyOmega科学上网">
+<meta name="twitter:description" content="最近重新装起了阔别已久的ubuntu，第一件事当然是科学上网啊。大概需要下面几步 1.一个代理服务账号&amp;nbsp;&amp;nbsp;这里我推荐 jikess，一个月只需要12大洋，200G代理流量，速度也很客观。自行注册购买，或者也可以先领几十M先体验下。">
+<meta name="twitter:image" content="https://desk-fd.zol-img.com.cn/t_s1024x768c5/g5/M00/02/08/ChMkJlbKzWGIZIhdAAQNZj09ufQAALJAQMP9cYABA1-499.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/03/Ubuntu下科学上网/">
+
+
+
+
+
+  <title>Ubuntu下shadowsocks 配合SwitchyOmega科学上网 | RicardoXu博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">RicardoXu博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/03/Ubuntu下科学上网/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RicardoXu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g2/M00/05/05/Cg-4WlVdf2mIQWEzABhFqZtzpSYAAD5OgH-m3MAGEXB992.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RicardoXu博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Ubuntu下shadowsocks 配合SwitchyOmega科学上网</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T00:00:00+08:00">
+                2017-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近重新装起了阔别已久的ubuntu，第一件事当然是科学上网啊。大概需要下面几步</p>
+<h3 id="1-一个代理服务账号"><a href="#1-一个代理服务账号" class="headerlink" title="1.一个代理服务账号"></a>1.一个代理服务账号</h3><p>&nbsp;&nbsp;这里我推荐 <a href="https://jikess.org/" target="_blank" rel="noopener">jikess</a>，一个月只需要12大洋，200G代理流量，速度也很客观。自行注册购买，或者也可以先领几十M先体验下。</p>
+<p><img src="https://desk-fd.zol-img.com.cn/t_s1024x768c5/g5/M00/02/08/ChMkJlbKzWGIZIhdAAQNZj09ufQAALJAQMP9cYABA1-499.jpg" alt></p>
+<a id="more"></a>
+<h3 id="2-ubuntu使用shadowsocks"><a href="#2-ubuntu使用shadowsocks" class="headerlink" title="2. ubuntu使用shadowsocks"></a>2. ubuntu使用shadowsocks</h3><p> <b>1.安装shadowsocks命令行程序，配置命令。</b></p>
+<p> 2.安装shadowsocks GUI图形界面程序，配置。<br></p>
+<h4 id="第一种安装shadowsocks命令行程序"><a href="#第一种安装shadowsocks命令行程序" class="headerlink" title="第一种安装shadowsocks命令行程序"></a>第一种安装shadowsocks命令行程序</h4><p>用PIP安装很简单</p>
+<pre><code>sudo apt-get update
+sudo apt-get install python-pip
+sudo apt-get install python-setuptools m2crypto
+</code></pre><p>接着安装shadowsocks</p>
+<pre><code>pip install shadowsocks
+</code></pre><p>如果是ubuntu16.04 直接 (16.04 里可以直接用apt 而不用 apt-get 这是一项改进）</p>
+<pre><code>sudo apt install shadowsocks
+</code></pre><p>当然你在安装时候肯定有提示需要安装一些依赖比如<code>python-setuptools m2crypto</code> ，依照提示安装然后再安装就好。也可以网上搜索有很多教程的。</p>
+<h4>启动shadowsocks</h4>
+
+<p>安装好后，在本地我们要用到sslocal ，终端输入sslocal –help 可以查看帮助，像这样</p>
+<p><img src="http://7xta11.com1.z0.glb.clouddn.com/2018-01-04%2017-03-17%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png"></p>
+<p>通过帮助提示我们知道各个参数怎么配置，比如 sslocal -c 后面加上我们的json配置文件，或者像下面这样直接命令参数写上运行。</p>
+<p>比如</p>
+<pre><code>sslocal -s 11.22.33.44 -p 50003 -k &quot;123456&quot; -l 1080 -t 600 -m aes-256-cfb
+</code></pre><p> -s表示服务IP, -p指的是服务端的端口，-l是本地端口默认是1080, -k 是密码（要加””）, -t超时默认300,-m是加密方法默认<code>aes-256-cfb</code>，</p>
+<p> <b>为了方便我推荐直接用sslcoal -c 配置文件路径 这样的方式，简单好用。</b></p>
+<p>我们可以在/home/{user}/ 下新建个文件shadowsocks.json  ({user}是你自己电脑上的用户名)。内容是这样：</p>
+<pre><code>{
+    &quot;server&quot;:&quot;11.22.33.44&quot;,
+    &quot;server_port&quot;:50003,
+    &quot;local_port&quot;:1080,
+    &quot;password&quot;:&quot;123456&quot;,
+    &quot;timeout&quot;:600,
+    &quot;method&quot;:&quot;aes-256-cfb&quot;
+}
+</code></pre><p>server  你服务端的IP<br>servier_port  你服务端的端口<br>local_port  本地端口，一般默认1080<br>passwd  ss服务端设置的密码<br>timeout  超时设置 和服务端一样<br>method  加密方法 和服务端一样</p>
+<p>确定上面的配置文件没有问题，然后我们就可以在终端输入 <code>sslocal -c /home/{user}/shadowsocks.json</code> 回车运行。如果没有问题的话，下面会是这样…</p>
+<p><img src="http://7xta11.com1.z0.glb.clouddn.com/2018-01-04%2017-11-06%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png"></p>
+<h4 id="第二种-安装图形界面"><a href="#第二种-安装图形界面" class="headerlink" title="第二种 安装图形界面"></a>第二种 安装图形界面</h4><p><b>在 Ubuntu下 通过PPA源安装，仅支持Ubuntu 14.04或更高版本。</b></p>
+<pre><code>sudo add-apt-repository ppa:hzwhuang/ss-qt5
+sudo apt-get update
+sudo apt-get install shadowsocks-qt5
+</code></pre><p>由于是图形界面，配置和windows基本没啥差别就不赘述了。</p>
+<p>经过上面两种方式的配置，你只是启动了sslocal 但是要上网你还需要配置下浏览器到指定到代理端口比如1080才可以正式上网。你可以去系统的代理设置按照说明设置代理，但一般是全局的，然而我们访问baidu,taobao等着些网站如果用代理就有点绕了，而且还会浪费服务器流量。我们最好配置我们的浏览器让它可以自动切换，该用代理用代理该直接连接自动直接连接。所以请看配置浏览器。</p>
+<h3 id="3-配置浏览器（chrome"><a href="#3-配置浏览器（chrome" class="headerlink" title="3.配置浏览器（chrome)"></a>3.配置浏览器（chrome)</h3><p>我们需要给chrome安装SwitchyOmega插件，但是没有代理之前是不能从谷歌商店安装这个插件的，但是我们可以从Github上直接下载最新版 <a href="https://github.com/FelisCatus/SwitchyOmega/releases/" target="_blank" rel="noopener">https://github.com/FelisCatus/SwitchyOmega/releases/</a> （这个是chrome的）然后浏览器地址打开chrome://extensions/，将下载的插件托进去安装。</p>
+<p><b>上面也是我之前一直用的方法，屡试不爽。但是这次不知道为啥在拖进chrome后始终没反应，无法离线安装。于是我决定先配置全局代理，这样chrome可以直接访问谷歌商店，然后再直接在线安装SwitchyOmega，实现代理自动切换的目的。</b></p>
+<h4>先配置全局代理</h4>
+
+<p>1、安装GenPAC<br>GenPAC 是基于gfwlist的代理自动配置（Proxy Auto-config）文件生成工具，支持自定义规则。在多数情况下，我们更希望使用PAC模式的代理，让我们访问国内网站时不再先绕地球跑一圈，在Windows和Mac上的shadowsocks客户端可以轻松切换到PAC模式，而在Ubuntu上我们需要使用pac文件来设置系统代理以达到相同的效果</p>
+<pre><code>sudo pip install genpac
+pip install --upgrade genpac
+</code></pre><p>2、使用GenPAC生成pac文件</p>
+<pre><code>genpac -p &quot;SOCKS5 127.0.0.1:1080&quot; --gfwlist-proxy=&quot;SOCKS5 127.0.0.1:1080&quot; --gfwlist-url=https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt --output=&quot;autoproxy.pac&quot;
+</code></pre><p>3、设置全局代理</p>
+<p>点击：System settings &gt; Network &gt; Network Proxy，选择 Method 为 Automatic，设置 Configuration URL 为 autoproxy.pac 文件的路径，点击 Apply System Wide。<br>格式如：<code>file:///home/{user}/autoproxy.pac</code></p>
+<p><img src="http://7xta11.com1.z0.glb.clouddn.com/2018-01-05%2014-28-09%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png"></p>
+<p>4、安装switchyOmega<br>  此时应该可以按照一定过滤规则访问外网了，但仍配置下浏览器（毕竟善始善终）</p>
+<p>  <img src="http://7xta11.com1.z0.glb.clouddn.com/2018-01-05%2014-32-26%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png"></p>
+<h4> 配置switchyOmega</h4>
+
+<p>1.配置代理地址</p>
+<p>安装好插件会自动跳到设置选项，有提示你可以跳过。左边新建情景模式-选择代理服务器-比如命名为proxy（叫什么无所谓）其他默认之后创建，之后在代理协议选择SOCKS5，地址为127.0.0.1,端口默认1080 。然后保存即应用选项。</p>
+<p><img src="http://7xta11.com1.z0.glb.clouddn.com/2018-01-05%2014-35-17%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png"></p>
+<p>2.设置自动切换</p>
+<p>接着点击自动切换 ( Auto switch）上面的不用管，在按照规则列表匹配请求后面选择刚才新建的proxy，默认情景模式选择直接连接。点击应用选项保存。再往下规则列表设置选择AutoProxy 然后将这个地址(<code>https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt</code>) 填进去，点击下面的立即更新情景模式，会有提示更新成功！</p>
+<p><img src="http://7xta11.com1.z0.glb.clouddn.com/2018-01-05%2014-37-58%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png"></p>
+<p><b>点击浏览器右上角的SwitchyOmega图标，下面选择自动切换，然后打开google.com试试，其他的就不在这贴图了。</b></p>
+<h4>至此shadowsocks搭建完成，天高任鸟飞，海阔任鱼跃。</h4>
+
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ShadowSocks/" rel="tag"># ShadowSocks</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/13/SSH整合出现的一些异常/" rel="next" title="SSH整合过程中的问题">
+                <i class="fa fa-chevron-left"></i> SSH整合过程中的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g2/M00/05/05/Cg-4WlVdf2mIQWEzABhFqZtzpSYAAD5OgH-m3MAGEXB992.jpg" alt="RicardoXu">
+            
+              <p class="site-author-name" itemprop="name">RicardoXu</p>
+              <p class="site-description motion-element" itemprop="description">技术博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-一个代理服务账号"><span class="nav-number">1.</span> <span class="nav-text">1.一个代理服务账号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-ubuntu使用shadowsocks"><span class="nav-number">2.</span> <span class="nav-text">2. ubuntu使用shadowsocks</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一种安装shadowsocks命令行程序"><span class="nav-number">2.1.</span> <span class="nav-text">第一种安装shadowsocks命令行程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">2.2.</span> <span class="nav-text">启动shadowsocks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二种-安装图形界面"><span class="nav-number">2.3.</span> <span class="nav-text">第二种 安装图形界面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-配置浏览器（chrome"><span class="nav-number">3.</span> <span class="nav-text">3.配置浏览器（chrome)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.1.</span> <span class="nav-text">先配置全局代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.2.</span> <span class="nav-text"> 配置switchyOmega</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.3.</span> <span class="nav-text">至此shadowsocks搭建完成，天高任鸟飞，海阔任鱼跃。</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RicardoXu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

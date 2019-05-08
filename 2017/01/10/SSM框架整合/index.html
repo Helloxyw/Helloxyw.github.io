@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SSM,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="RicardoXu博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="这里的SSM指的是（Spring-Springmvc-Mybatis)三大框架  前言  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;我们看招聘信息的时候，经常会看到这一点，需要具备SSH(Struts-Spring-Hibernate)框架的技能；而且在大部分教学课堂中，也会把SSH作为最核心的教学内容。&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;但是，我们在实际应用中发现，Sprin">
+<meta name="keywords" content="SSM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSM框架整合">
+<meta property="og:url" content="http://yoursite.com/2017/01/10/SSM框架整合/index.html">
+<meta property="og:site_name" content="RicardoXu博客">
+<meta property="og:description" content="这里的SSM指的是（Spring-Springmvc-Mybatis)三大框架  前言  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;我们看招聘信息的时候，经常会看到这一点，需要具备SSH(Struts-Spring-Hibernate)框架的技能；而且在大部分教学课堂中，也会把SSH作为最核心的教学内容。&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;但是，我们在实际应用中发现，Sprin">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g5/M00/02/08/ChMkJ1bKzWGIJK4PAAfFWxl1L9IAALJAQM0wFQAB8Vz309.jpg">
+<meta property="og:image" content="http://7xta11.com1.z0.glb.clouddn.com/SSM.png">
+<meta property="og:image" content="http://7xta11.com1.z0.glb.clouddn.com/SSM2.png">
+<meta property="og:updated_time" content="2019-05-08T14:23:10.867Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SSM框架整合">
+<meta name="twitter:description" content="这里的SSM指的是（Spring-Springmvc-Mybatis)三大框架  前言  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;我们看招聘信息的时候，经常会看到这一点，需要具备SSH(Struts-Spring-Hibernate)框架的技能；而且在大部分教学课堂中，也会把SSH作为最核心的教学内容。&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;但是，我们在实际应用中发现，Sprin">
+<meta name="twitter:image" content="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g5/M00/02/08/ChMkJ1bKzWGIJK4PAAfFWxl1L9IAALJAQM0wFQAB8Vz309.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/01/10/SSM框架整合/">
+
+
+
+
+
+  <title>SSM框架整合 | RicardoXu博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">RicardoXu博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/10/SSM框架整合/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RicardoXu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g2/M00/05/05/Cg-4WlVdf2mIQWEzABhFqZtzpSYAAD5OgH-m3MAGEXB992.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RicardoXu博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SSM框架整合</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-10T00:00:00+08:00">
+                2017-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<b>这里的SSM指的是（<code>Spring-Springmvc-Mybatis</code>)三大框架</b>
+
+<h4>前言</h4>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;我们看招聘信息的时候，经常会看到这一点，需要具备<code>SSH</code>(<code>Struts-Spring-Hibernate</code>)框架的技能；而且在大部分教学课堂中，也会把<code>SSH</code>作为最核心的教学内容。<br>&nbsp;&nbsp;&nbsp;&nbsp;但是，我们在实际应用中发现，<code>SpringMVC</code>可以完全替代<code>Struts</code>，配合注解的方式，编程非常快捷，而且通过restful风格定义url，让地址看起来非常优雅。<br>&nbsp;&nbsp;&nbsp;&nbsp;另外，<code>MyBatis</code>也可以替换<code>hibernate</code>，正因为<code>MyBatis</code>的半自动特点，我们程序猿可以完全掌控SQL，这会让有数据库经验的程序猿能开发出高效率的SQL语句，而且XML配置管理起来也非常方便。<br>&nbsp;&nbsp;&nbsp;&nbsp;下面我们开始进行SSM框架的整合。</p>
+<p><img src="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g5/M00/02/08/ChMkJ1bKzWGIJK4PAAfFWxl1L9IAALJAQM0wFQAB8Vz309.jpg" alt></p>
+<a id="more"></a>
+<p></p><h4>介绍</h4><br>在整合之前先介绍一下这三个框架，之前有了解的可以跳过.这里尽量通俗易懂的简单讲解一下。<p></p>
+<ul>
+<li><p>Springmvc<br>  &nbsp;&nbsp;&nbsp;&nbsp;它用于web层，相当于controller（等价于传统的servlet和struts的action），用来处理用户请求。举个例子，用户在地址栏输入<a href="http://网站域名/login，那么springmvc就会拦截到这个请求，并且调用controller层中相应的方法，（中间可能包含验证用户名和密码的业务逻辑，以及查询数据库操作，但这些都不是springmvc的职责），最终把结果返回给用户，并且返回相应的页面（当然也可以只反馈josn/xml等格式数据）。springmvc就是做前面和后面过程的活，与用户打交道！！" target="_blank" rel="noopener">http://网站域名/login，那么springmvc就会拦截到这个请求，并且调用controller层中相应的方法，（中间可能包含验证用户名和密码的业务逻辑，以及查询数据库操作，但这些都不是springmvc的职责），最终把结果返回给用户，并且返回相应的页面（当然也可以只反馈josn/xml等格式数据）。springmvc就是做前面和后面过程的活，与用户打交道！！</a></p>
+</li>
+<li><p>Spring<br>&nbsp;&nbsp;&nbsp;&nbsp; 太强大了，以至于我无法用一个词或一句话来概括它。但与我们平时开发接触最多的估计就是IOC容器，它可以装载bean（也就是我们Java中的类，当然也包括service dao里面的），有了这个机制，我们就不用在每次使用这个类的时候为它初始化，很少看到关键字new。另外spring的aop，事务管理等等都是我们经常用到的。</p>
+</li>
+</ul>
+<ul>
+<li>Mybatis<br>&nbsp;&nbsp;&nbsp;&nbsp;如果你问我它跟鼎鼎大名的Hibernate有什么区别？我只想说，他更符合我的需求。第一，它能自由控制sql，这会让有数据库经验的人编写的代码能搞提升数据库访问的效率。第二，它可以使用xml的方式来组织管理我们的sql，因为一般程序出错很多情况下是sql出错，别人接手代码后能快速找到出错地方，甚至可以优化原来写的sql。</li>
+</ul>
+<p></p><h4>SSM框架整合配置</h4><br>&nbsp;&nbsp;&nbsp;&nbsp;首先在Myeclipse中建立一个<code>Maven Web</code>工程。(对这步有疑问的可以看我之前的博客<a href="http://blog.pockerface.cn/2016/10/20/使用项目管理利器Maven/" target="_blank" rel="noopener">使用项目管理工具 <code>Maven</code></a>)<br>这是相应的项目目录<p></p>
+<center><br><img src="http://7xta11.com1.z0.glb.clouddn.com/SSM.png" alt><br></center><br><strong>这里介绍下Maven目录规范下各目录的作用</strong><br><del>====</del><br><br>| 文件名           | 作用          |<br>| ————- |:————-:|<br>|src           |根目录，没什么好说的，下面有main和test |<br>|main    |主要目录，可以放java代码和一些资源文件|<br>|java    |存放我们的java代码 |<br>|resources    | 存放资源文件，譬如各种的spring，mybatis，log配置文件|<br>mapper    |存放dao中每个方法对应的sql，在这里配置，无需写daoImpl|<br>|spring        |这里当然是存放spring相关的配置文件，有dao service web三层|<br>|test    |这里是测试分支|<br>|java    |测试java代码，应遵循包名相同的原则，这个文件夹同样要使用Build Path -&gt; Use as Source Folder，这样看包结构会方便很多|<br>|resources    |没什么好说的，好像也很少用到，但这个是maven的规范|<br>webapp    |用来存放我们前端的静态资源，如jsp js css|<br>|resources    |这里的资源是指项目的静态资源，如js css images等|<br>|WEB-INF    |很重要的一个目录，外部浏览器无法访问，只有羡慕内部才能访问，可以把jsp放在这里，另外就是web.xml了。你可能有疑问了，为什么上面java中的resources里面的配置文件不妨在这里，那么是不是会被外部窃取到？你想太多了，部署时候基本上只有webapp里的会直接输出到根目录，其他都会放入WEB-INF里面，项目内部依然可以使用classpath:XXX来访问，好像IDE里可以设置部署输出目录|<br><br><strong>讲解几个必要的包，顺便讲解一下每个包的作用.</strong><br><center><br><img src="http://7xta11.com1.z0.glb.clouddn.com/SSM2.png" alt><br></center>
+
+<table>
+<thead>
+<tr>
+<th>包名</th>
+<th style="text-align:center">名称</th>
+<th style="text-align:right">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dao</td>
+<td style="text-align:center">数据访问层（接口）</td>
+<td style="text-align:right">与数据打交道，可以是数据库操作，也可以是文件读写操作，甚至是redis缓存操作，总之与数据操作有关的都放在这里，也有人叫做dal或者数据持久层都差不多意思。为什么没有daoImpl，因为我们用的是mybatis，所以可以直接在配置文件中实现接口的每个方法。</td>
+</tr>
+<tr>
+<td>entity</td>
+<td style="text-align:center">实体类</td>
+<td style="text-align:right">一般与数据库的表相对应，封装dao层取出来的数据为一个对象，也就是我们常说的pojo，一般只在dao层与service层之间传输</td>
+</tr>
+<tr>
+<td>dto</td>
+<td style="text-align:center">数据传输层</td>
+<td style="text-align:right">刚学框架的人可能不明白这个有什么用，其实就是用于service层与web层之间传输，为什么不直接用entity（pojo）？其实在实际开发中发现，很多时候一个entity并不能满足我们的业务需求，可能呈现给用户的信息十分之多，这时候就有了dto，也相当于vo，记住一定不要把这个混杂在entity里面</td>
+</tr>
+<tr>
+<td>service</td>
+<td style="text-align:center">业务逻辑（接口）</td>
+<td style="text-align:right">写我们的业务逻辑，也有人叫bll，在设计业务接口时候应该站在“使用者”的角度</td>
+</tr>
+<tr>
+<td>impl</td>
+<td style="text-align:center">业务逻辑（实现）</td>
+<td style="text-align:right">实现我们业务接口，一般事务控制是写在这里</td>
+</tr>
+<tr>
+<td>web</td>
+<td style="text-align:center">控制器</td>
+<td style="text-align:right">springmvc就是在这里发挥作用的，一般人叫做controller控制器，相当于struts中的action</td>
+</tr>
+</tbody>
+</table>
+<p><strong>添加依赖</strong><br>    SSM整合需要导入相应的jar包,我们使用maven来管理我们的jar，所以只需要在<code>pom.xml</code>中加入相应的依赖。如果没有使用maven的话,可以自己去官网下载相应的jar包，然后放到项目的WEB-INF/lib目录下.</p>
+<p><b>三个主要框架版本</b></p>
+<ul>
+<li><code>Spring---4.3.3.RELEASE</code><ul>
+<li><code>spring mvc ---- 4.3.3.RELEASE</code></li>
+<li><code>mybatis ---- 3.2.5</code></li>
+</ul>
+</li>
+</ul>
+<p><b>其他</b></p>
+<ul>
+<li><p><code>junit ---- 4.8.1</code></p>
+</li>
+<li><p><code>MySQL ---- 5.1.38</code></p>
+</li>
+<li><p><code>log4j ---- 1.2.17</code></p>
+</li>
+<li><p><code>c3p0 ---- 0.9.2.1</code></p>
+</li>
+<li><p><code>mybatis-spring ---- 1.3.0</code>  </p>
+</li>
+<li><p><code>jstl ---- 1.2</code></p>
+</li>
+</ul>
+<p><b>pom.xml文件如下</b></p>
+<pre><code>  &lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;  
+  xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;  
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;  
+  &lt;groupId&gt;com.fendo.ssm&lt;/groupId&gt;  
+  &lt;artifactId&gt;fendo-SSM&lt;/artifactId&gt;  
+  &lt;packaging&gt;war&lt;/packaging&gt;  
+  &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;  
+  &lt;name&gt;fendo-SSM Maven Webapp&lt;/name&gt;  
+  &lt;url&gt;http://maven.apache.org&lt;/url&gt;  
+
+    &lt;!-- 初始化框架的版本号 --&gt;  
+    &lt;properties&gt;  
+        &lt;spring.version&gt;4.3.3.RELEASE&lt;/spring.version&gt;  
+    &lt;/properties&gt;  
+
+
+  &lt;dependencies&gt;  
+    &lt;dependency&gt;  
+      &lt;groupId&gt;junit&lt;/groupId&gt;  
+      &lt;artifactId&gt;junit&lt;/artifactId&gt;  
+      &lt;version&gt;3.8.1&lt;/version&gt;  
+      &lt;scope&gt;test&lt;/scope&gt;  
+    &lt;/dependency&gt;  
+
+         &lt;!-- 加入ServletAPI --&gt;  
+        &lt;!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api --&gt;  
+        &lt;dependency&gt;  
+            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;  
+            &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;  
+            &lt;version&gt;2.3&lt;/version&gt;  
+            &lt;scope&gt;provided&lt;/scope&gt;  
+        &lt;/dependency&gt;  
+
+
+        &lt;!-- MySQL依赖 start --&gt;  
+        &lt;dependency&gt;  
+            &lt;groupId&gt;mysql&lt;/groupId&gt;  
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;  
+            &lt;version&gt;5.1.38&lt;/version&gt;  
+        &lt;/dependency&gt;  
+
+        &lt;!-- MySQL依赖 end --&gt;  
+
+
+
+        &lt;!-- 加入MyBatis 依赖 start --&gt;  
+        &lt;dependency&gt;  
+            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;  
+            &lt;artifactId&gt;mybatis&lt;/artifactId&gt;  
+            &lt;version&gt;3.2.5&lt;/version&gt;  
+        &lt;/dependency&gt;  
+        &lt;!-- 加入MyBatis 依赖 end --&gt;  
+
+        &lt;!-- Log4j start --&gt;  
+        &lt;dependency&gt;  
+            &lt;groupId&gt;log4j&lt;/groupId&gt;  
+            &lt;artifactId&gt;log4j&lt;/artifactId&gt;  
+            &lt;version&gt;1.2.17&lt;/version&gt;  
+        &lt;/dependency&gt;  
+        &lt;!-- Log4j end --&gt;  
+
+           &lt;!-- 引入Spring(包含SpringMVC) 依赖 start --&gt;  
+        &lt;dependency&gt;  
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;  
+            &lt;artifactId&gt;spring-core&lt;/artifactId&gt;  
+            &lt;version&gt;${spring.version}&lt;/version&gt;  
+        &lt;/dependency&gt;  
+
+        &lt;dependency&gt;  
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;  
+            &lt;artifactId&gt;spring-web&lt;/artifactId&gt;  
+            &lt;version&gt;${spring.version}&lt;/version&gt;  
+        &lt;/dependency&gt;  
+        &lt;dependency&gt;  
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;  
+            &lt;artifactId&gt;spring-oxm&lt;/artifactId&gt;  
+            &lt;version&gt;${spring.version}&lt;/version&gt;  
+        &lt;/dependency&gt;  
+        &lt;dependency&gt;  
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;  
+            &lt;artifactId&gt;spring-tx&lt;/artifactId&gt;  
+            &lt;version&gt;${spring.version}&lt;/version&gt;  
+        &lt;/dependency&gt;  
+
+
+        &lt;dependency&gt;  
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;  
+            &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;  
+            &lt;version&gt;${spring.version}&lt;/version&gt;  
+        &lt;/dependency&gt;  
+
+        &lt;dependency&gt;  
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;  
+            &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;  
+            &lt;version&gt;${spring.version}&lt;/version&gt;  
+        &lt;/dependency&gt;  
+        &lt;dependency&gt;  
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;  
+            &lt;artifactId&gt;spring-aop&lt;/artifactId&gt;  
+            &lt;version&gt;${spring.version}&lt;/version&gt;  
+        &lt;/dependency&gt;  
+
+        &lt;dependency&gt;  
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;  
+            &lt;artifactId&gt;spring-context-support&lt;/artifactId&gt;  
+            &lt;version&gt;${spring.version}&lt;/version&gt;  
+        &lt;/dependency&gt;  
+
+        &lt;dependency&gt;  
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;  
+            &lt;artifactId&gt;spring-test&lt;/artifactId&gt;  
+            &lt;version&gt;${spring.version}&lt;/version&gt;  
+        &lt;/dependency&gt;  
+
+        &lt;!-- 引入Spring 依赖 end --&gt;  
+
+        &lt;!-- 引用c3p0 依赖 start--&gt;  
+        &lt;dependency&gt;  
+            &lt;groupId&gt;com.mchange&lt;/groupId&gt;  
+            &lt;artifactId&gt;c3p0&lt;/artifactId&gt;  
+            &lt;version&gt;0.9.2.1&lt;/version&gt;  
+        &lt;/dependency&gt;  
+        &lt;!-- 引用c3p0 依赖 end--&gt;  
+
+        &lt;!-- 引用插件依赖：MyBatis整合Spring --&gt;  
+        &lt;dependency&gt;  
+            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;  
+            &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;  
+            &lt;version&gt;1.3.0&lt;/version&gt;  
+        &lt;/dependency&gt;  
+
+        &lt;!-- JSTL --&gt;  
+        &lt;dependency&gt;  
+            &lt;groupId&gt;jstl&lt;/groupId&gt;  
+            &lt;artifactId&gt;jstl&lt;/artifactId&gt;  
+            &lt;version&gt;1.2&lt;/version&gt;  
+        &lt;/dependency&gt;  
+
+  &lt;/dependencies&gt;  
+  &lt;build&gt;  
+    &lt;finalName&gt;fendo-SSM&lt;/finalName&gt;  
+
+    &lt;plugins&gt;  
+      &lt;!-- 加入Tomcat插件 --&gt;  
+        &lt;plugin&gt;  
+          &lt;groupId&gt;org.apache.tomcat.maven&lt;/groupId&gt;  
+          &lt;artifactId&gt;tomcat7-maven-plugin&lt;/artifactId&gt;  
+          &lt;version&gt;2.2&lt;/version&gt;  
+                &lt;configuration&gt;   
+                    &lt;url&gt;http://localhost:8080/manager/text&lt;/url&gt;  
+                    &lt;username&gt;admin&lt;/username&gt;    
+                    &lt;password&gt;admin&lt;/password&gt;  
+                &lt;/configuration&gt;   
+        &lt;/plugin&gt;  
+    &lt;/plugins&gt;  
+
+  &lt;/build&gt;  
+&lt;/project&gt;
+</code></pre><p>   </p><h4>编码配置文件</h4><br>      <b>第一步：</b>我们先在spring文件夹里新建<code>spring-dao.xml</code>文件，因为spring的配置太多，我们这里分三层，分别是dao, service , web.<p></p>
+<ol>
+<li>读入数据库连接相关参数（可选）</li>
+<li><p>配置数据连接池</p>
+<ol>
+<li>配置连接属性，可以不读配置项文件直接在这里写死</li>
+<li>配置c3p0，只配了几个常用的</li>
+</ol>
+</li>
+<li><p>配置SqlSessionFactory对象（mybatis）</p>
+</li>
+<li><p>扫描dao层接口，动态实现dao接口，也就是说不需要daoImpl，sql和参数都写在xml文件上</p>
+<p><b>spring-dao.xml</b></p>
+</li>
+</ol>
+<pre><code>  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+  &lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:p=&quot;http://www.springframework.org/schema/p&quot;
+    xmlns:context=&quot;http://www.springframework.org/schema/context&quot; xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+     http://www.springframework.org/schema/context 
+     http://www.springframework.org/schema/context/spring-context-4.0.xsd
+     http://www.springframework.org/schema/tx  
+     http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+     &quot;&gt;
+     &lt;context:annotation-config /&gt;
+
+    &lt;!-- 配置整合MyBatis过程 --&gt;
+    &lt;!-- 1.配置数据库相关参数properties的属性:${url} --&gt;
+    &lt;context:property-placeholder location=&quot;classpath:jdbc.properties&quot; /&gt;
+
+    &lt;!--2.数据库连接池 --&gt;
+    &lt;bean id=&quot;dataSource&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;
+        &lt;!-- 配置连接池属性 --&gt;
+        &lt;property name=&quot;driverClass&quot; value=&quot;${jdbc.driverClass}&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;jdbcUrl&quot; value=&quot;${jdbc.url}&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;user&quot; value=&quot;${jdbc.username}&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;password&quot; value=&quot;${jdbc.password}&quot;&gt;&lt;/property&gt;
+
+        &lt;!-- c3p0私有属性 --&gt;
+        &lt;property name=&quot;maxPoolSize&quot; value=&quot;30&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;minPoolSize&quot; value=&quot;10&quot;&gt;&lt;/property&gt;
+        &lt;!-- 关闭连接后不自动commit --&gt;
+        &lt;property name=&quot;autoCommitOnClose&quot; value=&quot;false&quot;&gt;&lt;/property&gt;
+        &lt;!-- 获取连接超时时间 --&gt;
+        &lt;property name=&quot;checkoutTimeout&quot; value=&quot;1000&quot;&gt;&lt;/property&gt;
+        &lt;!-- 当获取连接失败重试次数 --&gt;
+        &lt;property name=&quot;acquireRetryAttempts&quot; value=&quot;2&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+
+    &lt;!-- 3.配置sqlSessionFactory对象 --&gt;
+    &lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;
+        &lt;!-- 注入数据库连接池 --&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+        &lt;!-- 配置MyBatis全局配置文件:myBatis-config.xml --&gt;
+        &lt;property name=&quot;configLocation&quot; value=&quot;classpath:mybatis-config.xml&quot;&gt;&lt;/property&gt;
+        &lt;!-- 扫描entity包，使用别名 --&gt;
+        &lt;property name=&quot;typeAliasesPackage&quot; value=&quot;org.seckill.entity&quot;&gt;&lt;/property&gt;
+        &lt;!-- 扫描sql配置文件:mapper需要的xml文件 --&gt;
+        &lt;property name=&quot;mapperLocations&quot; value=&quot;classpath:mapper/*.xml&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+
+    &lt;!-- 4.配置扫描Dao接口包，动态实现Dao接口，注入到spring容器中 --&gt;
+    &lt;bean class=&quot;org.mybatis.spring.mapper.MapperScannerConfigurer&quot;&gt;
+        &lt;!-- 注入sqlSessionFactory --&gt;
+        &lt;property name=&quot;sqlSessionFactoryBeanName&quot; value=&quot;sqlSessionFactory&quot;&gt;&lt;/property&gt;
+        &lt;!-- 给出需要扫描的Dao接口包 --&gt;
+        &lt;property name=&quot;basePackage&quot; value=&quot;com.blog.dao&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;
+</code></pre><p>&nbsp;&nbsp;因为数据库配置相关参数是读取配置文件，所以在resources文件夹里新建一个jdbc.properties文件，存放我们4个最常见的数据库连接属性，这是我本地的，大家记得修改.如果大家上传github时记得删掉密码，不然别人就很容易得到你服务器的数据库配置信息.    </p>
+<p><b>jdbc.properties</b></p>
+<pre><code>jdbc.driverClass=com.mysql.jdbc.Driver
+jdbc.url=jdbc\:mysql\://127.0.0.1\:3306/personBlog
+jdbc.username=root
+jdbc.password=
+</code></pre><p><b>友情提示：</b>配置文件中的jdbc.username，如果写成username，可能会与系统环境中的username变量冲突，所以到时候真正连接数据库的时候，用户名就被替换成系统中的用户名（有得可能是administrator），那肯定是连接不成功的，这里有个小坑,需要大家注意.</p>
+<p>这里用到了mybatis,所以接下来需要配置mybatis核心文件,在<code>resources</code>文件夹下新建<code>mybatis-config.xml</code>文件</p>
+ <li>  使用自增主键</li><br><li> 使用列别名</li><br> <li>   开启驼峰命名转换 create_time -&gt; createTime</li>
+
+<p><b>mybatis-config.xml</b></p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE configuration
+  PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
+  &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
+
+&lt;configuration&gt;
+    &lt;!-- 配置全局属性 --&gt;
+    &lt;settings&gt;
+        &lt;!-- 使用jdbc的getGenerateKeys获取数据库自增主键 --&gt;
+        &lt;setting name=&quot;useGererateKeys&quot; value=&quot;true&quot; /&gt;
+        &lt;!-- 使用列别名替换列名 默认：true --&gt;
+        &lt;setting name=&quot;useColumnLabel&quot; value=&quot;true&quot; /&gt;
+        &lt;!-- 开启驼峰命名转换 --&gt;
+        &lt;setting name=&quot;mapUnderscoreToCamelCase&quot; value=&quot;true&quot; /&gt;
+    &lt;/settings&gt;
+
+&lt;/configuration&gt;
+</code></pre><p><b>第二步:</b>刚弄好dao层，接下来到service层了。在spring文件夹里新建<code>spring-service.xml</code>文件。    </p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+    xmlns:p=&quot;http://www.springframework.org/schema/p&quot;
+    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;             
+    xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans         
+    http://    www.springframework.org/schema/beans/spring-beans-4.1.xsd
+     http://www.springframework.org/schema/context 
+     http://www.springframework.org/schema/context/spring-context-4.0.xsd
+     http://www.springframework.org/schema/tx  
+     http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+     &quot;&gt;
+    &lt;!-- 扫描service包下所有使用注解的类型 --&gt;
+    &lt;context:component-scan base-package=&quot;com.blog.service&quot;&gt;&lt;/context:component-scan&gt;
+
+    &lt;!-- 注入事务管理器 --&gt;
+    &lt;bean id=&quot;transactionManager&quot;
+        class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;
+        &lt;!-- 注入数据库连接池 --&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+
+    &lt;!--配置基于注解的声明式事务 --&gt;
+    &lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot;/&gt;
+&lt;/beans&gt;
+</code></pre><p><b>第三步:</b>配置web层，在spring文件夹里新建spring-web.xml文件.</p>
+<ol>
+<li><p>开启SpringMVC注解模式，可以使用@RequestMapping，@PathVariable，@ResponseBody等</p>
+<ol>
+<li>对静态资源处理，如js，css，jpg等</li>
+<li>配置jsp 显示ViewResolver，例如在controller中某个方法返回一个string类型的 “login”，实际上会返回”/WEB-INF/login.jsp”</li>
+<li>扫描web层 @Controller</li>
+</ol>
+<p><b>spring-web.xml</b></p>
+</li>
+</ol>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xmlns:p=&quot;http://www.springframework.org/schema/p&quot; xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+    xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+     http://www.springframework.org/schema/context 
+     http://www.springframework.org/schema/context/spring-context-4.0.xsd
+     http://www.springframework.org/schema/tx  
+     http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+     http://www.springframework.org/schema/mvc
+     http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+     &quot;&gt;
+    &lt;!-- 配置springMVC --&gt;
+    &lt;!-- 1:开启springMVC注解模式 --&gt;
+    &lt;!-- 简化配置： （1）自动注册DefaultAnnotationHandlerMapping,AnnotationMethodHandlerAdapter 
+        (2)提供一系列：数据绑定，数字和日期的format @NumberFormat ,@DataTimeFormat ,xml ,json默认读写支持 --&gt;
+
+    &lt;mvc:annotation-driven/&gt;
+
+    &lt;!-- 2.静态资源默认servlet配置
+        1：允许加入对静态资源的处理：js,gif,png
+        2:允许使用&quot;/&quot;做整体映射
+     --&gt;
+    &lt;mvc:default-servlet-handler/&gt;
+
+    &lt;!--3：配置jsp 显示ViewResolver--&gt;
+    &lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;
+        &lt;property name=&quot;viewClass&quot; value=&quot;org.springframework.web.servlet.view.JstlView&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+
+    &lt;!-- 4:扫描web相关的bean --&gt;
+    &lt;context:component-scan base-package=&quot;org.seckill.web&quot;/&gt;
+&lt;/beans&gt;
+</code></pre><p>  <b>第四步:</b>最后就是修改web.xml文件了，它在webapp的<code>WEB-INF</code>下。<br><b>web.xml</b></p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot;
+    xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;
+    id=&quot;WebApp_ID&quot; version=&quot;3.0&quot;&gt;
+
+&lt;!-- maven命令创建的servlet版本较低，默认没有打开JSTL，所以更改servlet版本为3.0 --&gt;
+  &lt;!-- 配置DispatcherServlet --&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;blog-dispatcher&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+        &lt;!-- 配置springMVC需要加载的配置文件
+            spring-dao.xml ,spring-service.xml ,spring-web.xml
+            Mybatis -&gt;spring -&gt;springMVC
+         --&gt;
+         &lt;init-param&gt;
+             &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+             &lt;param-value&gt;classpath:spring/spring-*.xml&lt;/param-value&gt;
+         &lt;/init-param&gt;
+    &lt;/servlet&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;blog-dispatcher&lt;/servlet-name&gt;
+        &lt;!-- 默认匹配所有请求 --&gt;
+        &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+
+&lt;/web-app&gt;
+</code></pre><p>我们在项目中经常会使用到日志，所以这里还有配置日志xml，在<code>resources</code>文件夹里新建<code>logback.xml</code>文件，所给出的日志输出格式也是最基本的控制台呼出，大家有兴趣查看<code>logback官方文档</code>。</p>
+<pre><code>    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+    &lt;configuration debug=&quot;true&quot;&gt;
+
+    &lt;appender name=&quot;STDOUT&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+        &lt;!-- encoders are by default assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder --&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            &lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+    &lt;root level=&quot;debug&quot;&gt;
+        &lt;appender-ref ref=&quot;STDOUT&quot; /&gt;
+    &lt;/root&gt;
+&lt;/configuration&gt;
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SSM/" rel="tag"># SSM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/01/JavaWeb三大框架之Hibernate初识/" rel="next" title="JavaWeb三大框架之Hibernate初识">
+                <i class="fa fa-chevron-left"></i> JavaWeb三大框架之Hibernate初识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/13/SSH整合出现的一些异常/" rel="prev" title="SSH整合过程中的问题">
+                SSH整合过程中的问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g2/M00/05/05/Cg-4WlVdf2mIQWEzABhFqZtzpSYAAD5OgH-m3MAGEXB992.jpg" alt="RicardoXu">
+            
+              <p class="site-author-name" itemprop="name">RicardoXu</p>
+              <p class="site-description motion-element" itemprop="description">技术博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">SSM框架整合配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">编码配置文件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RicardoXu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
