@@ -1,10 +1,16 @@
 ---
 
-title: 初识Redis
+title: 剑指offer
 date: 2019-05-15 21:15:53
 tags: Redis
 
 ---
+
+
+
+
+
+
 
 
 
@@ -16,14 +22,14 @@ tags: Redis
 
 
 
+<h3>4.Redis</h3>
+
+- 数据类型丰富
+- 支持数据磁盘持久化存储
+- 支持主从
+- 支持分片
+
 ![](https://i.postimg.cc/sfnpFq6R/redis.png)
-
-<h3>Redis</h3>
-
-* 数据类型丰富
-* 支持数据磁盘持久化存储
-* 支持主从
-* 支持分片
 
 <!-- more-->
 
@@ -291,4 +297,92 @@ if("OK".equals(result)){
 
    [![WX20190515-210621-2x.png](https://i.postimg.cc/y6n1wD6R/WX20190515-210621-2x.png)](https://postimg.cc/hhzRmPd4)
 
+
+
+<h3>6.JAVA底层知识</h3>
+
+![](http://img0.pconline.com.cn/pconline/1303/12/3208685_java-01.jpg)
+
+<h4>6.1谈谈你对Java的理解</h4>
+
+* 平台无关性（一次编译，到处运行）
+* GC(垃圾回收机制)
+* 语言特性（范型、反射、lmbda表达式）
+* 面向对象（继承、封装、多态）
+* 类库（集合、并发库、网络库、IO、NIO）
+* 异常处理
+
+
+
+<h4>6.2平台无关性如何实现</h4>
+
+[![WX20190617-235712-2x.png](https://i.postimg.cc/6qbwrd9r/WX20190617-235712-2x.png)](https://postimg.cc/jnfGKnn2)
+
+**为什么JVM不直接将源码解析成机器码去执行**
+
+* 准备工作：每次执行前都需要各种检查
+* 兼容性：也可以将别的语言解析成字节码
+
+
+
+<h4>6.3 JVM如何加载.class文件</h4>
+
+JVM之所以存在的原因就是**屏蔽底层操作系统平台的不同，并且降低基于原生语言开发的复杂性**。这里需要抓住一个重点
+
+>JVM是一个内存中的虚拟机，JVM的存储就是内存。我们所写的类、常量、变量、方法都在内存中
+
+这决定着我们写的代码是否健壮，是否高效
+
+[![WX20190618-000650-2x.png](https://i.postimg.cc/R0Jj8kvn/WX20190618-000650-2x.png)](https://postimg.cc/xkYxNFJ0)
+
+
+
+<h4>6.4什么是反射</h4>
+
+>JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意方法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。 
+
+
+
+**Robot.java**
+
+```java
+pcakage com.interview.javabasic.reflect;
+
+public class Robot{
+  private String name;
+  public void sayHi(String helloSentence){
+    System.out.println(helloSentence + "" + name);
+  }
+ private String throwHello(String tag){
+   return "hello " + tag; 
+ }
+}
+```
+
+**ReflectSample.java**
+
+```java
+pcakage com.interview.javabasic.reflect;
+
+public class ReflectSample{
+  Class rc = Class.forName("com.interview.javabasic.reflect.Robot");
+  Robot r = (Robot)arc.newInstance();
+  System.out.println("Class name is" + rc.getName());
+  
+  //获取所有的方法
+  Method getHello = rc.getDeclareMethod("throwHello", String.class);
+  getHello.setAccessible(true);  //该方法是私有方法
+  Object str = getHello.invoke(r,"Bob");
+  System.out.println("getHello result is" + str);
+  
+  Method sayHi = rc.getMethod("sayHi", String.class);
+  sayHi.invoke(r, "welcome");
+  
+  Field name = rc.getDeclareField("name");
+  name.setAccessible(true);
+  name.set(r, "Alice");
+  sayHi.invoke(r, "welcome");
    
+}
+```
+
