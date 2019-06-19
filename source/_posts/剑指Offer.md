@@ -386,3 +386,178 @@ public class ReflectSample{
 }
 ```
 
+
+
+<h4>6.5谈谈ClassLoader</h4>
+
+![WX20190619-231034-2x.png](https://i.postimg.cc/J0qw25G0/WX20190619-231034-2x.png)
+
+
+
+[![WX20190619-231219-2x.png](https://i.postimg.cc/KjZcjzTK/WX20190619-231219-2x.png)](https://postimg.cc/FdBXnhDm)
+
+
+
+
+
+
+
+ [![WX20190619-232415-2x.png](https://i.postimg.cc/zDS6FpmY/WX20190619-232415-2x.png)](https://postimg.cc/pyrs2fXs)
+
+
+
+
+
+[![WX20190619-234626-2x.png](https://i.postimg.cc/wBWfrx5X/WX20190619-234626-2x.png)](https://postimg.cc/wtmQypGM)
+
+**MyClassLoader.java**
+
+```java
+package com.interview.basic.reflect;
+
+import java.io.*;
+
+/**
+ * Created with IDEA
+ * author:RicardoXu
+ * Date:2019/6/19
+ * Time:23:42
+ * 自定义ClassLoader
+ */
+public class MyClassLoader extends ClassLoader {
+
+    private String path;
+    private String classLoaderName;
+
+    public MyClassLoader(String path, String classLoaderName) {
+        this.path = path;
+        this.classLoaderName = classLoaderName;
+    }
+
+
+    /**
+     * 用于寻找类文件
+     *
+     * @param name
+     * @return
+     */
+    @Override
+    public Class findClass(String name) {
+        byte[] b = loadClassData(name);
+        return defineClass(name, b, 0, b.length);
+    }
+
+    /**
+     * 用于加载类文件
+     * @param name
+     * @return
+     */
+    public byte[] loadClassData(String name){
+        name = path + name + ".class";
+        InputStream in = null;
+        ByteArrayOutputStream out = null;
+        try {
+            in = new FileInputStream(new File(name));
+            out = new ByteArrayOutputStream();
+            int i = 0;
+            while((i = in.read())!= -1){
+                out.write(i);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                out.close();
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return out.toByteArray();
+    }
+}
+
+```
+
+**MyClassLoaderCheck.java**
+
+```java
+package com.interview.basic.reflect;
+
+/**
+ * Created with IDEA
+ * author:RicardoXu
+ * Date:2019/6/20
+ * Time:00:06
+ */
+public class MyClassLoaderCheck {
+    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        //要扫描的class路径
+        String path = "xx/xxx/xxx";
+        MyClassLoader myClassLoader = new MyClassLoader(path,"myClassLoader");
+        //test.class
+        Class c = myClassLoader.loadClass("test");
+        System.out.println(c.getClassLoader());
+        c.newInstance();
+
+    }
+}
+```
+
+**运行结果**
+
+[![WX20190620-001931-2x.png](https://i.postimg.cc/9FwZymN4/WX20190620-001931-2x.png)](https://postimg.cc/ZCZWSSmZ)
+
+
+
+<h4>6.6 ClassLoader的双亲委派机制</h4>
+
+[![WX20190620-002428-2x.png](https://i.postimg.cc/PrkTMht3/WX20190620-002428-2x.png)](https://postimg.cc/fk5GwGSm)
+
+
+
+**ClassLoader.java**
+
+```java
+protected Class<?> loadClass(String name, boolean resolve)
+        throws ClassNotFoundException
+    {
+        synchronized (getClassLoadingLock(name)) {
+            // First, check if the class has already been loaded
+            Class<?> c = findLoadedClass(name);
+            if (c == null) {
+                long t0 = System.nanoTime();
+                try {
+                    if (parent != null) {
+                        c = parent.loadClass(name, false);
+                    } else {
+                        c = findBootstrapClassOrNull(name);
+                    }
+                } catch (ClassNotFoundException e) {
+                    // ClassNotFoundException thrown if class not found
+                    // from the non-null parent class loader
+                }
+
+                if (c == null) {
+                    // If still not found, then invoke findClass in order
+                    // to find the class.
+                    long t1 = System.nanoTime();
+                    c = findClass(name);
+
+                    // this is the defining class loader; record the stats
+                    sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);
+                    sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);
+                    sun.misc.PerfCounter.getFindClasses().increment();
+                }
+            }
+            if (resolve) {
+                resolveClass(c);
+            }
+            return c;
+        }
+    }
+
+```
+
+[![WX20190620-003548-2x.png](https://i.postimg.cc/nrx7xgJH/WX20190620-003548-2x.png)](https://postimg.cc/R6PqQPh8)
+
