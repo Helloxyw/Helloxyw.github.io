@@ -561,3 +561,24 @@ protected Class<?> loadClass(String name, boolean resolve)
 
 [![WX20190620-003548-2x.png](https://i.postimg.cc/nrx7xgJH/WX20190620-003548-2x.png)](https://postimg.cc/R6PqQPh8)
 
+<h4>6.7类的加载方式</h4>
+
+* 隐式加载： new
+* 显式加载：loadClass , forName等
+
+
+
+[![WX20190626-213715-2x.png](https://i.postimg.cc/m22dNx0h/WX20190626-213715-2x.png)](https://postimg.cc/grQqm7cP)
+
+[![WX20190626-214427-2x.png](https://i.postimg.cc/9M1J7JXv/WX20190626-214427-2x.png)](https://postimg.cc/hzzLF8dr)
+
+**疑问：既然`forName`已经可以完成类的初始化了，为什么还需要`loadClass`呢？**
+
+存在即合理。`SpringIOC`的`LazyLoading `（延迟加载技术） ,`SpringIOC`为了加快初始化速度，因此大量使用了延时加载技术。而使用`ClassLoader.loadClass`不需要执行类中的初始化代码，可以加快加载速度，把类的初始化工作留到实际使用这个类的时候。
+
+
+
+
+
+
+
