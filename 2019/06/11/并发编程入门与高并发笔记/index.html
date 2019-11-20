@@ -119,7 +119,7 @@
 <meta property="og:image" content="https://i.postimg.cc/s285BWYn/WX20190707-223004-2x.png">
 <meta property="og:image" content="https://i.postimg.cc/CMWYvxNW/WX20190707-223138-2x.png">
 <meta property="og:image" content="https://i.postimg.cc/htV9Jvyg/WX20190707-223929-2x.png">
-<meta property="og:updated_time" content="2019-07-15T15:26:22.718Z">
+<meta property="og:updated_time" content="2019-07-15T15:35:30.203Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="并发编程与高并发入门">
 <meta name="twitter:description" content="4.线程安全性定义：当多个线程访问某个类时，不管运行时环境采用何种调度方式或者这些进程将如何交替执行，并且在主调代码中不需要任何额外的同步或协同，这个类都能表现出正确的行为，那么就称这个类是线程安全的。 原子性：提供了互斥访问，同一时刻只能有一个线程来对它进行操作。  可见性：一个线程对主内存的修改可以及时的被其他线程观察到。 有序性：一个线程观察其他线程中的指令执行顺序，由于指令重排序的存在">
@@ -336,10 +336,7 @@
         <p><a href="https://996.icu" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/link-996.icu-red.svg"></a></p>
 <p><img src="https://desk-fd.zol-img.com.cn/t_s1440x900c5/g5/M00/01/0E/ChMkJlbKweiIFY_6AA3VjT9w7FMAALGfwFCj8AADdWl862.jpg" alt></p>
 <h3>4.线程安全性</h3><br>定义：当多个线程访问某个类时，不管运行时环境采用<b>何种调度方式</b>或者这些进程将如何交替执行，并且在主调代码中<b>不需要任何额外的同步或协同</b>，这个类都能表现出<b>正确的行为</b>，那么就称这个类是线程安全的。<br><br><em> 原子性：提供了互斥访问，同一时刻只能有一个线程来对它进行操作。
-</em> 可见性：一个线程对主内存的修改可以及时的被其他线程观察到。<br><em> 有序性：一个线程观察其他线程中的指令执行顺序，由于指令重排序的存在，该观察结果一般杂乱无序。<br><br><a id="more"></a><br><br><b>原子性——Atomic包</b>
-
-</em> AtomicXXX：CAS、Unsafe.compareAndSwapInt<br><em> AtomicLong、LongAdder
-</em> AtomicReference、AtomicReferenceFieldUpdater<br><em> AtomicStampReference：CAS的ABA问题<br><br><b>原子性——锁</b>
+</em> 可见性：一个线程对主内存的修改可以及时的被其他线程观察到。<br><em> 有序性：一个线程观察其他线程中的指令执行顺序，由于指令重排序的存在，该观察结果一般杂乱无序。<br><br><a id="more"></a><br><br><b>原子性——Atomic包</b><br><br>- AtomicXXX：CAS、Unsafe.compareAndSwapInt<br>- AtomicLong、LongAdder<br>- AtomicReference、AtomicReferenceFieldUpdater<br>- AtomicStampReference：CAS的ABA问题<br><br><b>原子性——锁</b>
 
 </em> synchronized：依赖JVM<br><em> Lock：依赖特殊的CPU指令，代码实现，ReentrantLock<br><br><b>原子性——synchronize</b>
 
@@ -593,12 +590,10 @@
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">RicardoXu</span>
+  <span>&nbsp;<a href="http://www.miitbeian.gov.cn/">赣ICP备16002615号-1</a></span>
 
   
 </div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
