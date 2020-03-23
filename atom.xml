@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-06-16T15:28:16.615Z</updated>
+  <updated>2020-03-23T16:03:39.996Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java线程状态及切换</title>
+    <link href="http://yoursite.com/2020/03/24/Java%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%8F%8A%E5%88%87%E6%8D%A2/"/>
+    <id>http://yoursite.com/2020/03/24/Java线程状态及切换/</id>
+    <published>2020-03-23T16:00:00.000Z</published>
+    <updated>2020-03-23T16:03:39.996Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、线程的几个重要方法"><a href="#一、线程的几个重要方法" class="headerlink" title="一、线程的几个重要方法"></a>一、线程的几个重要方法</h2><ul><li>start()方法，开始执行该线程</li><li>stop()方法，强制结束该线程执行</li><li>join()方法，等待该线程结束</li><li>sleep()方法，线程进入等待</li><li>run()方法，直接执行线程的run()方法，但是线程调用start()方法时也会运行run()方法，区别就是一个是由线程调度运行run()方法，一个是直接调用了线程中的run()方法</li></ul><p><img src="http://pic1.win4000.com/wallpaper/0/57f86946b178d.jpg" alt><br><a id="more"></a></p><p>至于wait()和notify()他们是Objetc的方法，不是Thread的方法，同时wait()与notify()会配合使用，分别表示线程挂起和线程恢复。</p><p>wait()和sleep()的区别，<strong>wait()会释放对象锁资源，而sleep()不会释放对象锁资源。但是wait和sleep都会释放cpu资源。</strong></p><h2 id="二、Java线程的生命周期"><a href="#二、Java线程的生命周期" class="headerlink" title="二、Java线程的生命周期"></a>二、Java线程的生命周期</h2><ol><li><p>新建(NEW):新建了一个线程对象，并没有调用start()之前</p></li><li><p>可运行(Runnable):就绪状态，<strong>调用start()之后线程就进入就绪状态，但是并不是说只要调用start()线程马上变为当前线程，在变为当前线程之前都是为就绪状态。线程在睡眠和挂起中恢复的时候也会进入就绪状态。</strong> 线程对象创建后，其他线程（比如main线程)调用了该对象的start()方法，该状态的线程位于可运行线程池中，等待被线程调度选中，获取CPI的使用权。</p></li><li><p>运行(Running):可运行状态的线程获得了CPU时间片，执行程序代码。线程被设置为当前线程，开始执行run()方法，就是线程进入了运行状态</p></li><li><p>阻塞(Blocked):阻塞是指线程因为某种原因放弃了cpu使用权，即让出了cpu 时间片，暂时停止运行。知道线程进入可运行状态，才有机会再次获得cpu 时间片转到运行状态。线程被暂停，比如调用sleep()方法后，线程就进入阻塞状态。</p><p>阻塞分为三种情况：</p><ul><li>等待阻塞：运行的线程执行o.wait()方法，JVM会把该线程放入等待队列(waitting queue)中</li><li>同步阻塞：运行的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入锁池(lock pool)中</li><li>其他阻塞：运行的线程执行Thread.sleep(long ms)或者t.join()方法，或者放出了I/O请求，JVM会把线程设置为阻塞状态。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入可运行状态</li></ul></li><li><p>死亡(Dead):线程执行结束，线程run()、main()方法执行结束，或者异常退出了run()方法，则该线程结束生命周期。死亡的线程不可再次复生。</p></li></ol><p><img src="https://s1.ax1x.com/2020/03/23/8H2gIg.png" alt="8H2gIg.png"></p><h2 id="三、具体状态"><a href="#三、具体状态" class="headerlink" title="三、具体状态"></a>三、具体状态</h2><h3 id="初始状态"><a href="#初始状态" class="headerlink" title="初始状态"></a>初始状态</h3><p>实现Runnable接口和继承Thread可以得到一个线程类，new一个实例出来，线程就进入了初始状态</p><h3 id="可运行状态"><a href="#可运行状态" class="headerlink" title="可运行状态"></a>可运行状态</h3><ol><li>可运行状态只是说你有资格运行，调度程序没有挑选到你，你就永远是可运行状态。</li><li>调用线程的start()方法，此线程进入可运行状态</li><li>当前线程sleep()方法结束、其他线程join()方法结束、等待用户输入完毕、某个线程拿到对象锁，这些线程也将进入可运行状态</li><li>当前线程时间片用完了、调用当前线程的yield()方法，当前线程进入可运行状态</li><li>锁池里的线程拿到对象锁后，进入可运行状态</li></ol><h3 id="运行状态"><a href="#运行状态" class="headerlink" title="运行状态"></a>运行状态</h3><p>线程调度程序从可运行池中选择一个线程作为当前线程时线程所处的状态。这也是线程进入运行状态的唯一方式</p><h3 id="死亡状态"><a href="#死亡状态" class="headerlink" title="死亡状态"></a>死亡状态</h3><ol><li>当线程的run()方法完成时，或者主线程的main()方法完成时，我们就认为它死去。这个线程对象也许是活的，但是，它已经不是一个单独执行的线程。 <strong>线程一旦死亡，就不能复生</strong></li><li>在一个死去的线程上调用start()方法，会抛出<code>java.lang.IllegalThreadStateException</code>异常</li></ol><h3 id="阻塞状态"><a href="#阻塞状态" class="headerlink" title="阻塞状态"></a>阻塞状态</h3><ol><li>当前线程T调用Thread.sleep()方法，当前线程进入阻塞状态</li><li>运行在当前线程里的其他线程t2调用join方法，当前线程进入阻塞状态</li><li>等待用户输入时，当前线程进入阻塞状态</li></ol><h3 id="等待队列（本是Object里的方法，但影响了线程）"><a href="#等待队列（本是Object里的方法，但影响了线程）" class="headerlink" title="等待队列（本是Object里的方法，但影响了线程）"></a>等待队列（本是Object里的方法，但影响了线程）</h3><ol><li>调用obj的wait()、notify()方法前，必须获得obj锁，也就是必须写在<code>synchronized(obj)</code>代码段内。</li><li>等待队列相关的步骤和图</li></ol><p><img src="https://s1.ax1x.com/2020/03/23/8H4Kjs.png" alt="8H4Kjs.png"></p><h2 id="四、几个方法的比较"><a href="#四、几个方法的比较" class="headerlink" title="四、几个方法的比较"></a>四、几个方法的比较</h2><ul><li><p>sleep：Thread类的方法，必须带一个时间参数。 <strong>会让当前线程休眠进入阻塞状态并释放CPU( sleep释放cpu，wait也会释放cpu，因为cpu资源太宝贵了，只有在线程running的时候，才会获取cpu片段)</strong>，提供其他线程运行的机会且不考虑优先级，但如果有同步锁，则sleep不会释放锁，即其他线程无法获得同步锁，可通过调用interrupt()方法来唤醒休眠线程。（interrupt()的作用是，在线程收到阻塞时，抛出一个中断信号，这样线程就得以退出阻塞的状态。更确切的说，如果线程被Object.wait，Thread.join和Thread.sleep三种方法之一阻塞，那么它将接收到一个中断异常(<code>InterruptedException</code>)，从而提早终结被阻塞状态）</p></li><li><p>yield：<strong>让出CPU调度</strong>，Thread类的方法，类似sleep只是不能由用户指定暂停多长时间，并且yield()方法 <strong>只能让同优先级的线程</strong>有执行的机会。yield()只是使当前线程重新回到可执行状态，所以执行yield()的线程有可能在进入 <strong>可执行状态后</strong>马上又被执行。调用yield()方法只是一个建议，告诉线程调度器，我的工作已经做的差不多了，可以让别的相同优先级的线程使用cpu了，没有任何机制保证采纳</p></li><li><p>wait: Object类的方法(notify()、notifyAll())，必须放在循环体和同步代码块中，执行该方法的线程会释放锁，进入线程池等待被再次唤醒(notify随机唤醒，notifyAll全部唤醒，线程结束自动唤醒)，即放入锁池中竞争同步锁</p></li><li><p>join:一种特殊的wait，当前运行线程调用另一个线程的join方法，当前线程进入阻塞状态，直到另一个线程运行结束，等待该线程终止。注意该方法也需要捕捉异常。</p><p>等待调用join方法的线程结束，再继续执行。</p><p><img src="https://s1.ax1x.com/2020/03/23/8H4UgJ.png" alt="8H4UgJ.png"></p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;一、线程的几个重要方法&quot;&gt;&lt;a href=&quot;#一、线程的几个重要方法&quot; class=&quot;headerlink&quot; title=&quot;一、线程的几个重要方法&quot;&gt;&lt;/a&gt;一、线程的几个重要方法&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;start()方法，开始执行该线程&lt;/li&gt;
+&lt;li&gt;stop()方法，强制结束该线程执行&lt;/li&gt;
+&lt;li&gt;join()方法，等待该线程结束&lt;/li&gt;
+&lt;li&gt;sleep()方法，线程进入等待&lt;/li&gt;
+&lt;li&gt;run()方法，直接执行线程的run()方法，但是线程调用start()方法时也会运行run()方法，区别就是一个是由线程调度运行run()方法，一个是直接调用了线程中的run()方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;http://pic1.win4000.com/wallpaper/0/57f86946b178d.jpg&quot; alt&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Thread" scheme="http://yoursite.com/tags/Thread/"/>
+    
+  </entry>
   
   <entry>
     <title>Java秒杀系统方案优化 高性能高并发实战</title>
