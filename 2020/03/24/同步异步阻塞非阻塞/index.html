@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="网络编程,">
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="RicardoXu博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="1 同步与异步首先来解释下同步和异步的概念，这两个概念和消息的通知机制有关。也就是同步和异步主要是从消息通知机制角度来说的。 1.1 概念描述所谓同步就是一个任务的完成需要依赖另一个任务时，只有等待被依赖的任务完成后，依赖的任务才算完成，这是一种可靠的任务序列。要么成功都成功，要么失败都失败，这两个任务的状态可以一致。 所谓异步是不需要等待被依赖的任务完成，只是通知被依赖的任务要完成什么工作，依赖">
+<meta name="keywords" content="网络编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="同步异步与阻塞非阻塞">
+<meta property="og:url" content="http://yoursite.com/2020/03/24/同步异步阻塞非阻塞/index.html">
+<meta property="og:site_name" content="RicardoXu博客">
+<meta property="og:description" content="1 同步与异步首先来解释下同步和异步的概念，这两个概念和消息的通知机制有关。也就是同步和异步主要是从消息通知机制角度来说的。 1.1 概念描述所谓同步就是一个任务的完成需要依赖另一个任务时，只有等待被依赖的任务完成后，依赖的任务才算完成，这是一种可靠的任务序列。要么成功都成功，要么失败都失败，这两个任务的状态可以一致。 所谓异步是不需要等待被依赖的任务完成，只是通知被依赖的任务要完成什么工作，依赖">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img3.51tietu.net/pic/2016-060411/20160604110705phmiwo32jbb329772.jpg">
+<meta property="og:updated_time" content="2020-03-23T16:25:52.369Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="同步异步与阻塞非阻塞">
+<meta name="twitter:description" content="1 同步与异步首先来解释下同步和异步的概念，这两个概念和消息的通知机制有关。也就是同步和异步主要是从消息通知机制角度来说的。 1.1 概念描述所谓同步就是一个任务的完成需要依赖另一个任务时，只有等待被依赖的任务完成后，依赖的任务才算完成，这是一种可靠的任务序列。要么成功都成功，要么失败都失败，这两个任务的状态可以一致。 所谓异步是不需要等待被依赖的任务完成，只是通知被依赖的任务要完成什么工作，依赖">
+<meta name="twitter:image" content="http://img3.51tietu.net/pic/2016-060411/20160604110705phmiwo32jbb329772.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/24/同步异步阻塞非阻塞/">
+
+
+
+
+
+  <title>同步异步与阻塞非阻塞 | RicardoXu博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">RicardoXu博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/24/同步异步阻塞非阻塞/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RicardoXu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g2/M00/05/05/Cg-4WlVdf2mIQWEzABhFqZtzpSYAAD5OgH-m3MAGEXB992.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RicardoXu博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">同步异步与阻塞非阻塞</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-24T00:00:00+08:00">
+                2020-03-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-同步与异步"><a href="#1-同步与异步" class="headerlink" title="1 同步与异步"></a>1 同步与异步</h2><p><strong>首先来解释下同步和异步的概念，这两个概念和消息的通知机制有关。也就是同步和异步主要是从消息通知机制角度来说的。</strong></p>
+<h3 id="1-1-概念描述"><a href="#1-1-概念描述" class="headerlink" title="1.1 概念描述"></a>1.1 概念描述</h3><p><strong>所谓同步就是一个任务的完成需要依赖另一个任务时，只有等待被依赖的任务完成后，依赖的任务才算完成，这是一种可靠的任务序列。</strong>要么成功都成功，要么失败都失败，这两个任务的状态可以一致。</p>
+<p><strong>所谓异步是不需要等待被依赖的任务完成，只是通知被依赖的任务要完成什么工作，依赖的任务也立即执行，只要自己完成了整个任务就算完成了。</strong>至于依赖的任务最终是否真正完成，依赖它的任务无法确定，<strong>所以它是不可靠的任务序列。</strong></p>
+<p><img src="http://img3.51tietu.net/pic/2016-060411/20160604110705phmiwo32jbb329772.jpg" alt><br><a id="more"></a></p>
+<h3 id="1-2-消息通知"><a href="#1-2-消息通知" class="headerlink" title="1.2 消息通知"></a>1.2 消息通知</h3><p><strong>异步的概念和同步相对</strong>。当一个同步调用发出后，<strong>调用者要一直等待返回消息(结果)通知后</strong>，才能进行后续的执行；当一个异步过程调用发出后，调用者不能立刻得到返回消息（结果）。<strong>实际处理这个调用的部件在完成后，通过状态、通知和回调来通知调用者</strong>。</p>
+<p>这里提到的执行部件和调用者通过三种途径返回结果：<code>状态、通知和回调</code>。使用哪一种通知机制，<code>依赖于执行部件的实现</code>，除非执行部件提供多种选择，<code>否则不受调用者控制</code>。</p>
+<blockquote>
+<p>1.如果执行部件用状态来通知，那么调用者就需要每隔一定时间检查一次，效率就很低（有些初学多线程编程的人，总喜欢用一个循环去检查某个变量的值，这其实是一种很严重的错误。</p>
+<p>2.如果是使用通知的方式，效率则很高，因为执行部件几乎不需要做额外的操作。至于回调函数，其实和通知没太多区别。</p>
+</blockquote>
+<h3 id="1-3-场景比喻"><a href="#1-3-场景比喻" class="headerlink" title="1.3 场景比喻"></a>1.3 场景比喻</h3><p>举个例子，比如我去银行办理业务，可能会用两种方式：</p>
+<blockquote>
+<ol>
+<li>选择排队等候</li>
+<li>另外一种选择，取号，等到排到我这一号时由柜台的人通知我去办理业务</li>
+</ol>
+</blockquote>
+<p>第一种：<strong>前者（排队等候）就是同步等待消息通知</strong>，也就是我要一直在等待银行办理业务情况；</p>
+<p>第二种：<strong>后者（等待别人通知）就是异步等待消息通知</strong>，在异步消息处理中，<strong>等待消息通知者（等待办理业务的人）往往注册一个回调机制</strong>。在所等待的事件被触发时由触发机制（柜台的人）通过某种机制（写在小纸条上的号码，喊号）找到等待该事件的人。</p>
+<h2 id="2-阻塞非阻塞"><a href="#2-阻塞非阻塞" class="headerlink" title="2. 阻塞非阻塞"></a>2. 阻塞非阻塞</h2><p><strong>阻塞和非阻塞这两个概念与程序（线程）等待消息通知（无所谓同步或者异步）时的状态有关。也就是说阻塞与非阻塞主要是程序（线程）等待消息通知时的状态角度来说的。</strong></p>
+<h3 id="2-1-概念描述"><a href="#2-1-概念描述" class="headerlink" title="2.1 概念描述"></a>2.1 概念描述</h3><p><strong>阻塞调用是指调用结果返回前，当前线程会被挂起，一直处于等待消息通知，不能够执行其他业务</strong>。函数只有在得到结果之后才会返回。</p>
+<p><strong>有人也许会把阻塞调用和同步调用等同起来，实际上它们是不同的。</strong></p>
+<ol>
+<li><strong>对于同步调用来说，很多时候当前线程可能还是激活的，只是从逻辑上当前函数没有返回而已。此时，这个线程可能也会处理其他的消息。</strong>扩展点：</li>
+</ol>
+<blockquote>
+<p>(a)如果这个线程在等待当前函数返回时，仍在执行其他消息处理，那这种情况就叫作同步非阻塞</p>
+<p>(b)如果这个线程在等待当前函数返回时，没有执行其他消息处理，而是处于挂起等待状态，那这种情况就叫做同步阻塞</p>
+</blockquote>
+<p><strong>所以同步的实现方式会有两种：同步阻塞、同步非阻塞；同理，异步也会有两种实现：异步阻塞、异步非阻塞</strong>。</p>
+<ol>
+<li><p>对于阻塞调用来说，则当前线程就会被挂起等待当前函数返回</p>
+<p>非阻塞和阻塞的概念相对于，<strong>指在不能立刻得到结果之前，该函数不会阻塞当前线程，而会立刻返回。</strong>虽然表面上看非阻塞的方式可以明显的提高CPU的利用率，<strong>但是也带来了另外一种后果就是系统的线程切换增加，增加的CPU执行时间能不能补偿系统的切换成本需要好好评估。</strong></p>
+</li>
+</ol>
+<h3 id="2-2-场景比喻"><a href="#2-2-场景比喻" class="headerlink" title="2.2 场景比喻"></a>2.2 场景比喻</h3><p>继续上面的例子，不论是排队还是取号等待通知，<strong>如果在这个等待的过程中，等待者除了等待消息通知之外不能做其他事情，那么该机制就是阻塞的</strong>。表现在程序中，也就是该程序一直阻塞在该函数调用处不能继续往下执行。</p>
+<p>相反，<strong>有的人喜欢在银行办理这些业务的时候，一边打电话发短信一边等待，这样的状态就是非阻塞的</strong>，因为等待者没有阻塞在这个消息通知上，而是一边做自己的事情一边等待。</p>
+<p>但是需要注意的是，<strong>同步非阻塞形式实际上是效率低下的</strong>，想象一下你一边打着电话，一边还需要抬头看到底队伍排到你了没有。如果把打电话和观察排队的位置看成是程序的两个操作的话，这个程序需要在这两种不同的行为之间来回的切换，效率可想而知是低下的；而<strong>异步非阻塞形式却没有这样的问题，</strong>因为打电话是等待者的事情，而通知你则是柜台（消息触发机制）的事情，程序没有在两种不同的操作中来回切换。</p>
+<h2 id="3-同步-异步与阻塞-非阻塞"><a href="#3-同步-异步与阻塞-非阻塞" class="headerlink" title="3 同步/异步与阻塞/非阻塞"></a>3 同步/异步与阻塞/非阻塞</h2><h3 id="3-1-同步阻塞形式"><a href="#3-1-同步阻塞形式" class="headerlink" title="3.1. 同步阻塞形式"></a>3.1. 同步阻塞形式</h3><p>效率最低，以上面的例子举例，就是你专心排队，什么别的事情都不做</p>
+<p><strong>实际程序中：</strong>就是未对fd设置<code>O_NONBLOCK</code>标志位的 read/write操作</p>
+<h3 id="3-2-异步阻塞形式"><a href="#3-2-异步阻塞形式" class="headerlink" title="3.2. 异步阻塞形式"></a>3.2. 异步阻塞形式</h3><p>如果是在银行等待办理业务的人，<strong>采用的是异步的方式去等待消息被触发（通知）</strong>，也就是领了一张小纸条，假如在这段时间里他不能离开银行去做其他的事情，那么很显然，这个人被阻塞在了这个等待的操作上面</p>
+<p><strong>异步操作是可以被阻塞的，只不过它不是在处理消息时阻塞，而是在等待消息通知时被阻塞。</strong></p>
+<p>比如select函数，假如传入的最后一个timeout参数为NULL，<strong>那么如果所关注的事件没有一个被触发，程序就会一直阻塞在这个select调用处</strong></p>
+<h3 id="3-3-同步非阻塞形式"><a href="#3-3-同步非阻塞形式" class="headerlink" title="3.3. 同步非阻塞形式"></a>3.3. 同步非阻塞形式</h3><p>实际上效率低下的，2.2已解释了效率低下的原因。很多人会写阻塞的read/write操作，<strong>但是可以对fd设置O_NONBLOCK标志位，这样就可以将同步操作变成非阻塞的了</strong>。</p>
+<h3 id="3-4-异步非阻塞形式"><a href="#3-4-异步非阻塞形式" class="headerlink" title="3.4.异步非阻塞形式"></a>3.4.异步非阻塞形式</h3><p>效率更高，因为打电话是等待者的事情，而通知你是柜台（消息触发机制）的事情，<strong>程序没有在两种不同的操作中来回切换</strong>。</p>
+<p>比如说，这个人突然想出去抽根烟，于是他告诉大堂经理说，排到我这个号码的时候麻烦到外面通知我一下(注册一个回调函数)，那么他就没有被阻塞在这个等待的操作上面，自然这个就是异步+非阻塞的方式了。</p>
+<p>如果使用异步非阻塞的情况，比如aio_<em>组的操作，当发起一个aio_read操作时，<em>*函数会马上返回不会被阻塞，当所关注的事件被触发时会调用之前注册的回调函数进行处理。</em></em></p>
+<blockquote>
+<p>很多人会把同步和阻塞混淆，我想是因为<strong>很多时候同步操作会以阻塞的形式表现出来，但最根本是因为没有区分这两个概念。</strong>比如阻塞的read/write操作中，<strong>其实是把消息通知机制和等待消息通知的状态结合在了一起，</strong>在这里<strong>所关注的消息就是fd是否可读/写，</strong>而<strong>等待消息通知的状态则是对fd可读/写等待过程中程序（线程）的状态</strong>。如果我们将这个fd设置为非阻塞的时候，read/write操作就不会在等待消息通知这里阻塞，如果fd不可读/写,则操作立即返回。</p>
+<p>同样的，很多人也会把异步和非阻塞混淆，<strong>因为异步操作一般都不会在真正的IO操作处被阻塞，</strong>比如如果用select函数，<strong>当select返回可读时再去read一般不会被阻塞，而是在select函数调用处阻塞</strong>。</p>
+</blockquote>
+<h2 id="4-小明的故事"><a href="#4-小明的故事" class="headerlink" title="4.小明的故事"></a>4.小明的故事</h2><p>对上面所讲的概念再次进行一个场景梳理，上面已经明确说过了，<strong>同步/异步关注的是消息通知的机制，而阻塞/非阻塞关注的是程序(线程)等待消息通知的状态</strong>。以小明下载文件打个比方，从这两个关注点来再次说明这两组概念，希望能更好的促进大家的理解。</p>
+<p><strong>同步阻塞：小明一直盯着下载进度条，到100%的时候完成</strong></p>
+<blockquote>
+<p>同步体现在：等待下载完成通知</p>
+<p>阻塞体现在：等待下载完成通知的过程中，不能做其他任务处理</p>
+</blockquote>
+<p><strong>同步非阻塞：小明提交下载任务后就去干别的，每过一段时间就去瞄一眼进度条，看到100%就完成</strong></p>
+<blockquote>
+<p>同步体现在：等待下载完成通知</p>
+<p>非阻塞体现在：等待下载完成通知的过程中，去干别的任务了，只是时不时会瞄一眼进度条（小明必须要在两个任务间切换，关注下载进度）</p>
+</blockquote>
+<p><strong>异步阻塞：小明换了个有下载完成通知功能的软件，下载完成就”叮”一声，不过小明仍然一直在等待”叮“的声音（看起来很傻）</strong></p>
+<blockquote>
+<p>异步体现在：下载完成”叮”一声通知</p>
+<p>阻塞体现在：等待下载完成后”叮”一声通知中，不能做其他任务处理</p>
+</blockquote>
+<p><strong>异步非阻塞：仍然是那个会“叮”一声的下载软件，小明提交下载任务后就去干别的，听到“叮”的一声就知道完成了</strong></p>
+<blockquote>
+<p>异步体现在：下载完成”叮”一声通知</p>
+<p>阻塞体现在：等待下载完成后”叮”一声通知中，去干别的任务了，只需要接收”叮”的一声通知即可，（软件处理下载任务，小明处理其他任务，不需关注进度，只需接收软件”叮”的通知即可</p>
+</blockquote>
+<p>也就是说，<strong>同步/异步是“下载完成消息”通知的方式（机制），而阻塞/非阻塞则是在等待“下载完成消息”通知过程中的状态（能不能干其他任务）</strong>，在不同的场景下，同步/异步、阻塞/非阻塞的四种组合都有应用。</p>
+<p>所以综上所述，<strong>同步和异步仅仅是关注的消息如何通知的机制，而阻塞与非阻塞关注的是等待消息通知时的状态。</strong>也就是说，<strong>同步的情况下，是由处理消息者自己去等待消息是否被触发，而异步的情况下是由触发机制来通知处理消息者，</strong>所以在异步机制中，<strong>处理消息和触发机制之间就需要一个连接的桥梁:</strong></p>
+<blockquote>
+<p>银行的例子中，这个桥梁就是小纸条上的号码</p>
+<p>小明的例子中，这个桥梁就是软件”叮”的声音</p>
+</blockquote>
+<p><strong>最后，大家注意理解”消息通知机制”和”等待消息通知时的状态”这两个概念，这是理解四个概念的关键所在。</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/网络编程/" rel="tag"># 网络编程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/24/Java线程状态及切换/" rel="next" title="Java线程状态及切换">
+                <i class="fa fa-chevron-left"></i> Java线程状态及切换
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g2/M00/05/05/Cg-4WlVdf2mIQWEzABhFqZtzpSYAAD5OgH-m3MAGEXB992.jpg" alt="RicardoXu">
+            
+              <p class="site-author-name" itemprop="name">RicardoXu</p>
+              <p class="site-description motion-element" itemprop="description">技术博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-同步与异步"><span class="nav-number">1.</span> <span class="nav-text">1 同步与异步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-概念描述"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 概念描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-消息通知"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 消息通知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-场景比喻"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 场景比喻</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-阻塞非阻塞"><span class="nav-number">2.</span> <span class="nav-text">2. 阻塞非阻塞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-概念描述"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 概念描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-场景比喻"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 场景比喻</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-同步-异步与阻塞-非阻塞"><span class="nav-number">3.</span> <span class="nav-text">3 同步/异步与阻塞/非阻塞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-同步阻塞形式"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. 同步阻塞形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-异步阻塞形式"><span class="nav-number">3.2.</span> <span class="nav-text">3.2. 异步阻塞形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-同步非阻塞形式"><span class="nav-number">3.3.</span> <span class="nav-text">3.3. 同步非阻塞形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-异步非阻塞形式"><span class="nav-number">3.4.</span> <span class="nav-text">3.4.异步非阻塞形式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-小明的故事"><span class="nav-number">4.</span> <span class="nav-text">4.小明的故事</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RicardoXu</span>
+  <span>&nbsp;<a href="http://www.miitbeian.gov.cn/">赣ICP备16002615号-1</a></span>
+
+  
+</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
