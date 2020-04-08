@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="GC,">
 
 
 
@@ -81,16 +81,20 @@
 
 
 
-<meta name="description" content="技术博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="RicardoXu博客">
-<meta property="og:url" content="http://yoursite.com/tags/Ngrok/index.html">
+<meta name="description" content="GC: 垃圾收集。这里的垃圾是指在系统运行过程中产生的一些无用的对象，这些对象占据着一定的内存空间，如果长期不释放，可能导致OOM GC对象是 Java堆和方法区">
+<meta name="keywords" content="GC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GC算法">
+<meta property="og:url" content="http://yoursite.com/2020/04/08/GC算法/index.html">
 <meta property="og:site_name" content="RicardoXu博客">
-<meta property="og:description" content="技术博客">
+<meta property="og:description" content="GC: 垃圾收集。这里的垃圾是指在系统运行过程中产生的一些无用的对象，这些对象占据着一定的内存空间，如果长期不释放，可能导致OOM GC对象是 Java堆和方法区">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ionutbalosin.com/wp-content/uploads/2019/12/java-garbage-collector-types.png">
+<meta property="og:updated_time" content="2020-04-08T13:20:49.447Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RicardoXu博客">
-<meta name="twitter:description" content="技术博客">
+<meta name="twitter:title" content="GC算法">
+<meta name="twitter:description" content="GC: 垃圾收集。这里的垃圾是指在系统运行过程中产生的一些无用的对象，这些对象占据着一定的内存空间，如果长期不释放，可能导致OOM GC对象是 Java堆和方法区">
+<meta name="twitter:image" content="https://ionutbalosin.com/wp-content/uploads/2019/12/java-garbage-collector-types.png">
 
 
 
@@ -120,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/Ngrok/">
+  <link rel="canonical" href="http://yoursite.com/2020/04/08/GC算法/">
 
 
 
 
 
-  <title>标签: Ngrok | RicardoXu博客</title>
+  <title>GC算法 | RicardoXu博客</title>
   
 
 
@@ -145,7 +149,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -219,52 +223,185 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Ngrok<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/08/GC算法/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RicardoXu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://desk-fd.zol-img.com.cn/t_s1366x768c5/g2/M00/05/05/Cg-4WlVdf2mIQWEzABhFqZtzpSYAAD5OgH-m3MAGEXB992.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RicardoXu博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2016/09/20/神器Ngrok映射外网/" itemprop="url">
-              
-                <span itemprop="name">Ngrok神器映射外网</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">GC算法</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2016-09-20T19:59:53+08:00" content="2016-09-20">
-          09-20
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-08T00:00:00+08:00">
+                2020-04-08
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>GC: 垃圾收集。这里的垃圾是指在系统运行过程中产生的一些无用的对象，这些对象占据着一定的内存空间，如果长期不释放，可能导致OOM</p>
+<p>GC对象是 Java堆和方法区</p>
+<p><img src="https://ionutbalosin.com/wp-content/uploads/2019/12/java-garbage-collector-types.png" alt><br><a id="more"></a></p>
+<ol>
+<li>引用计数算法 （效率高，实现简单，但存在循环引用问题）</li>
+<li>根搜索算法 当GCRoots到某一个对象不达时，认为这个对象可以被回收</li>
+</ol>
+<ul>
+<li>标记清除算法（效率低，递归方式还有全堆对象遍历，清理出来的空闲内存不连续）：<ul>
+<li>标记阶段：通过根节点，标记所有从根节点开始可到达的对象</li>
+<li>清除阶段：清除所有未被标记的对象</li>
+</ul>
+</li>
+<li><p>复制算法（适合新生代GC,缺点是空间浪费）：将内存空间分为两块，每次只使用一块，在垃圾回收时，将正在使用的内存中的存活对象复制到未使用的内存块中，之后，清除正在使用的内存块中的所有对象，交换两个内存的角色，完成垃圾回收</p>
+</li>
+<li><p>标记-整理算法（适合老年代GC,效率不太高，低于复制算法)：首先需要从根节点开始，对所有可达对象做一次标记；但之后，它并不简单的清理未标记的对象，而是<strong>将所有的存活对象压缩到内存的一端；</strong>之后，清理边界外所有的空间。</p>
+</li>
+<li>分代收集算法：短命对象归为新生代、长命对象归为老年代<ul>
+<li>少量对象存活，适合复制算法</li>
+<li>大量对象存活，适合标记清除/标记整理算法</li>
+</ul>
+</li>
+</ul>
+<p><strong>可触及性：</strong></p>
+<p>所有的算法，需要能够识别一个垃圾对象，因此需要给出一个可触及性的定义。</p>
+<p><strong>可触及的：</strong></p>
+<p>　　从根节点可以触及到这个对象。</p>
+<p>  　　其实就是从根节点扫描，只要这个对象在引用链中，那就是可触及的。</p>
+<p><strong>可复活的：</strong></p>
+<p>　　一旦所有引用被释放，就是可复活状态</p>
+<p>　　因为在finalize()中可能复活该对象</p>
+<p><strong>不可触及的：</strong></p>
+<p>　　在finalize()后，可能会进入不可触及状态</p>
+<p>　　不可触及的对象不可能复活</p>
+<p>  　　要被回收。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/GC/" rel="tag"># GC</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/07/Redis/" rel="next" title="Redis">
+                <i class="fa fa-chevron-left"></i> Redis
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/08/kafka/" rel="prev" title="kafak">
+                kafak <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -272,6 +409,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -484,6 +625,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
