@@ -92,18 +92,18 @@
 <meta property="og:description" content="1. 消息队列的好处  缓存和削峰： 上游数据时有突发流量，下游可能扛不住，或者下游没有足够的机器来保证冗余，kafka在中间可以起到一个缓冲作用，把消息暂存在kafka中，下游服务就可以按照自己的节奏进行慢慢处理">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://images.vogel.de/vogelonline/bdb/1484300/1484344/41.jpg">
-<meta property="og:image" content="http://yoursite.com/Users/ricardo/Library/Application%20Support/typora-user-images/image-20191226210942873.png">
-<meta property="og:image" content="http://yoursite.com/Users/ricardo/Library/Application%20Support/typora-user-images/image-20191226211754863.png">
-<meta property="og:image" content="http://yoursite.com/Users/ricardo/Library/Application%20Support/typora-user-images/image-20191228151527931.png">
-<meta property="og:image" content="http://yoursite.com/Users/ricardo/Library/Application%20Support/typora-user-images/image-20191228135443219.png">
-<meta property="og:image" content="http://yoursite.com/Users/ricardo/Library/Application%20Support/typora-user-images/image-20191228142209444.png">
-<meta property="og:image" content="http://yoursite.com/Users/ricardo/Library/Application%20Support/typora-user-images/image-20191228142638781.png">
-<meta property="og:image" content="http://yoursite.com/Users/ricardo/Library/Application%20Support/typora-user-images/image-20191228144748824.png">
-<meta property="og:image" content="http://yoursite.com/Users/ricardo/Library/Application%20Support/typora-user-images/image-20191228152107909.png">
-<meta property="og:image" content="http://yoursite.com/Users/ricardo/Library/Application%20Support/typora-user-images/image-20191228152622924.png">
-<meta property="og:image" content="http://yoursite.com/Users/ricardo/Library/Application%20Support/typora-user-images/image-20191228154725250.png">
-<meta property="og:image" content="http://yoursite.com/Users/ricardo/Library/Application%20Support/typora-user-images/image-20191229184639460.png">
-<meta property="og:updated_time" content="2020-04-08T13:17:13.831Z">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-8ca010d65aa8e4c385a901fb2e91f31a_1440w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-92c5c49e68a6213914936ed979c05c6b_1440w.jpg">
+<meta property="og:image" content="https://lotabout.me/2018/kafka-introduction/kafka-consumer-group.svg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-4692429e9184ed4a93911fa3a1361d28_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-b7e72e9c5b9971e89ec174a2c2201ed9_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-87d558aaa349bf920711b9c157e11f6a_1440w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-72e50c12fd9c6fbf58d3b5ca14c90623_1440w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-75a79cba9cfafe5c2f4d5349acb72207_1440w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-87051d884344edf9f8fd97a3dacb32d0_1440w.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/08/GhnHHg.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190425101924979.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NoZWVwODUyMQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2020-04-08T14:16:37.650Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafak">
 <meta name="twitter:description" content="1. 消息队列的好处  缓存和削峰： 上游数据时有突发流量，下游可能扛不住，或者下游没有足够的机器来保证冗余，kafka在中间可以起到一个缓冲作用，把消息暂存在kafka中，下游服务就可以按照自己的节奏进行慢慢处理">
@@ -329,12 +329,12 @@
 <li>异步通信：很多时候，用户不想也不需要立即处理消息。消息队列提供了异步处理机制，允许用户把一个消息放入队列，但并不立即处理它。想向队列中放入多少消息就放多少，然后在需要的时候再去处理它。</li>
 </ul>
 <p></p><h3>2.消息队列通信的模式</h3><br><strong>一、点对点模式（队列模式）</strong><p></p>
-<p><img src="/Users/ricardo/Library/Application Support/typora-user-images/image-20191226210942873.png" alt="image-20191226210942873"></p>
+<p><img src="https://pic3.zhimg.com/80/v2-8ca010d65aa8e4c385a901fb2e91f31a_1440w.jpg" alt="image-20191226210942873"></p>
 <blockquote>
 <p>点对点模式通常是基于拉取或者轮询的消息传送模型，这个模型的特点是发送到队列的消息被一个且只有一个消费者进行处理。生产者将消息放入消息队列后，由消费者主动的去拉取消息进行消费。点对点模型的优点是消费者拉取消息的频率可以由自己控制。但是消息队列是否有消息需要消费，在消费者端无法感知，所以在消费者端需要额外的线程去监控。</p>
 </blockquote>
 <p><strong>二、发布订阅模式</strong></p>
-<p><img src="/Users/ricardo/Library/Application Support/typora-user-images/image-20191226211754863.png" alt="image-20191226211754863"></p>
+<p><img src="https://pic4.zhimg.com/80/v2-92c5c49e68a6213914936ed979c05c6b_1440w.jpg" alt="image-20191226211754863"></p>
 <blockquote>
 <p>发布订阅模式是一个基于消息推送的消息传送模型，该模型可以有多种不同的订阅者。生产者将消息放入消息队列后，队列会将该消息推送给订阅过该类消息的消费者（类似微信公众号）。由于消费者被动接收推送，所以无需感知消息队列是否有待消费的消息！但consumer1、consumer2、consumer3由于机器性能不一样，所以处理消息的能力也会不一样，但消息队列却无法感知消费者消费的速度！所以推送的速度成了发布订阅者模式的一个问题！假设三个消费者的处理速度分别是8M/s、5M/s、2M/s，如果队列推送的速度为5M/s，则consumer3无法承受！如果队列推送的速度为2M/s，则consumer1、consumer2会出现资源的极大浪费！</p>
 </blockquote>
@@ -345,7 +345,7 @@
 <li>发布订阅模式，一个消息可以被多次消费，能支持冗余的消费（例如两个消费者共同消费一个消息，防止某个消费者挂了）</li>
 </ul>
 <p>显然要构建一个大数据下消息队列，两种模式都是必需的。因此kafka引入了ConsumerGroup（消费组）的概念，Consumer Group是以发布订阅模式工作的；一个Consumer Group中可以有多个Consumer，Group内的Consumer以点对点模式工作。</p>
-<p><img src="/Users/ricardo/Library/Application Support/typora-user-images/image-20191228151527931.png" alt="image-20191228151527931"></p>
+<p><img src="https://lotabout.me/2018/kafka-introduction/kafka-consumer-group.svg" alt="image-20191228151527931"></p>
 <p></p><h3>3.Kafka基础架构及术语</h3><br><strong>kafka是一种高吞吐量的分布式发布订阅消息系统</strong>，它可以处理消费者规模的网站中的所有动作流数据。具有：<p></p>
 <ul>
 <li>高吞吐量</li>
@@ -354,7 +354,7 @@
 <li>耐久性</li>
 <li>可扩展性</li>
 </ul>
-<p><img src="/Users/ricardo/Library/Application Support/typora-user-images/image-20191228135443219.png" alt="image-20191228135443219"></p>
+<p><img src="https://pic1.zhimg.com/80/v2-4692429e9184ed4a93911fa3a1361d28_1440w.jpg" alt="image-20191228135443219"></p>
 <p><strong>相关概念：</strong></p>
 <ul>
 <li>Producer： 生产者，消息的生产者，是消息的入口</li>
@@ -372,9 +372,9 @@
 </ul>
 <p></p><h3>4.工作流程分析</h3><br><strong>发送数据</strong><p></p>
 <p>Producer在写入数据时<strong>永远的找Leader</strong>，不会直接将数据写入Follower。写入的流程如下图：</p>
-<p><img src="/Users/ricardo/Library/Application Support/typora-user-images/image-20191228142209444.png" alt="image-20191228142209444"></p>
+<p><img src="https://pic2.zhimg.com/80/v2-b7e72e9c5b9971e89ec174a2c2201ed9_1440w.jpg" alt="image-20191228142209444"></p>
 <p>需要注意的一点：消息写入Leader后，follower是主动的去leader同步的！Producer采用push模式将数据发布到broker，每条消息追加到分区中，顺序写入磁盘，所以保证<strong>同一分区</strong>内的数据是有序的！</p>
-<p><img src="/Users/ricardo/Library/Application Support/typora-user-images/image-20191228142638781.png" alt="image-20191228142638781"></p>
+<p><img src="https://pic3.zhimg.com/80/v2-87d558aaa349bf920711b9c157e11f6a_1440w.jpg" alt="image-20191228142638781"></p>
 <p>上面说到数据会写入不同的分区，kafka分区的主要目的是：</p>
 <ul>
 <li>方便扩展：因为同一个topic可以有多个partition，所以我们可以通过扩展机器去轻松的应对日益增长的数据量</li>
@@ -396,7 +396,7 @@
 <p>最后需要注意的是，如果往不存在topic写数据，能不能写入成功呢？kafka会自动创建topic，分区和副本的数量根据默认值都是1。</p>
 <p><strong>保存数据</strong></p>
 <p>topic可以分为一个或多个partition，partition在服务器上的表现形式就是一个一个的文件夹，每个partition的文件夹下面会有多组segment文件，每组segment文件又包含.index文件、.log文件、.timeindex文件（早起版本中没有）三个文件，log文件实际上就是存储message的地方，而index和timeindex文件为索引文件，用于检索消息。</p>
-<p><img src="/Users/ricardo/Library/Application Support/typora-user-images/image-20191228144748824.png" alt="image-20191228144748824"></p>
+<p><img src="https://pic4.zhimg.com/80/v2-72e50c12fd9c6fbf58d3b5ca14c90623_1440w.jpg" alt="image-20191228144748824"></p>
 <p>如上图，这个partition有三组segment文件，每个log文件大小是一样的，但是存储message数量不一定相等的（每条message大小不一致）。文件的命名就是以该segment最小offset来命名的，如000.index存储offset为0~368795的消息，kafka就是利用分段+索引的方式来解决查找效率的问题。</p>
 <p><strong>Message结构</strong></p>
 <p>存入log的message主要包含消息体、消息大小、offset、压缩类型。。。等等！重点了解下面三个：</p>
@@ -415,11 +415,11 @@
 <p><strong>消费数据</strong></p>
 <p>消息存储在log文件后，消费者就可以进行消费了。消费组内的消费者是以点对点模式进行消费，消费者主动的去kafka集群拉取消息，与producer相同的是，消费者在拉取消息的时候也是找leader去拉取。</p>
 <p>多个消费者可以组成一个消费者组（Consumer Group），每个消费者组都有一个组id！同一个Consumer Group下的Consumer可以消费同一个topic下不同partition的数据，但是不会组内多个Consumer消费同一个partition的数据。</p>
-<p><img src="/Users/ricardo/Library/Application Support/typora-user-images/image-20191228152107909.png" alt="image-20191228152107909"></p>
+<p><img src="https://pic4.zhimg.com/80/v2-75a79cba9cfafe5c2f4d5349acb72207_1440w.jpg" alt="image-20191228152107909"></p>
 <p>图示是Consumer Group内的Consumer小于partition数量的情况，所以会出现某个Consumer消费多个partition数据的情况，消费的速度也就不及只处理一个partition的Consumer的处理速度！如果Consumer Group的Consumer多于Partition的数量，那会不会出现多个Consumer消费同一个partition的数据呢？上面已经提到不会出现这种情况！多出来的Consumer不消费任何partition的数据。所以在实际的应用中，建议<strong>Consumer Group的Consumer数量于Partition的数量一致！</strong></p>
 <p><strong>查找message</strong></p>
 <p>假如现在需要查找一个offset为368801的message是什么样的过程？</p>
-<p><img src="/Users/ricardo/Library/Application Support/typora-user-images/image-20191228152622924.png" alt="image-20191228152622924"></p>
+<p><img src="https://pic1.zhimg.com/80/v2-87051d884344edf9f8fd97a3dacb32d0_1440w.jpg" alt="image-20191228152622924"></p>
 <ol>
 <li>先找到offset为368801的message所在的segment文件（利用二分查找），在这里找到的就是第二个segment文件。</li>
 <li>打开找到的segment中的.index文件（也就是368796.index文件，该文件起始偏移量为368796+1，我们要查找offset为368801的message在该index内的偏移量为368796+5  = 368801，所以这里要查找的<strong>相对offset</strong>为5）。由于该文件采用的是稀疏索引的方式存储着相对offset及对应message物理偏移量的关系，所以直接找相对offset为5的索引找不到，这里同样利用二分法查找相对offset小于或者等于指定的相对offset的索引条目中最大的那个相对offset，所以找到的是相对offset为4的那个索引</li>
@@ -429,7 +429,7 @@
 <p></p><h3>参考</h3><p></p>
 <ul>
 <li><p>稀疏索引</p>
-<p><img src="/Users/ricardo/Library/Application Support/typora-user-images/image-20191228154725250.png" alt="image-20191228154725250"></p>
+<p><img src="https://s1.ax1x.com/2020/04/08/GhnHHg.png" alt="GhnHHg.png"></p>
 </li>
 </ul>
 <p></p><h3>面试题</h3><br><strong>1.Kafka中的ISR、AR代表什么？ISR的伸缩性又指什么？</strong><p></p>
@@ -454,7 +454,7 @@
 <p>zookeeper是一个分布式的协调组件，早起版本kafka用zk做meta信息存储，Consumer的消费状态、Group的管理以及offset的值。考虑到zk本身的一些因素以及整个架构较大概率存在单点问题，新版本中逐渐弱化了zookeeper的作用。新的Consumer使用了kafka内部的group coordination协议，也逐渐减少了对zookeeper的依赖。</p>
 <p>但是broker依然依赖于zk，zookeeper在kafka中还用来选举controller和检查broker是否存活等。</p>
 <p><strong>4.kafka follower如何与leader同步数据</strong></p>
-<p><img src="/Users/ricardo/Library/Application Support/typora-user-images/image-20191229184639460.png" alt="image-20191229184639460"></p>
+<p><img src="https://img-blog.csdnimg.cn/20190425101924979.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NoZWVwODUyMQ==,size_16,color_FFFFFF,t_70" alt></p>
 <p>kafka的复制既不是完全的同步复制，也不是单纯的异步复制。</p>
 <ul>
 <li>完全同步复制：要求all live follower都复制完，这条消息才算commit，这种复制方式极大影响了吞吐率</li>
@@ -533,8 +533,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/08/GC算法/" rel="next" title="GC算法">
-                <i class="fa fa-chevron-left"></i> GC算法
+              <a href="/2020/04/08/Java集合框架/" rel="next" title="Java集合框架">
+                <i class="fa fa-chevron-left"></i> Java集合框架
               </a>
             
           </div>
@@ -620,7 +620,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
