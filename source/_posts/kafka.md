@@ -19,13 +19,13 @@ tags: kafak
 <h3>2.消息队列通信的模式</h3>
 **一、点对点模式（队列模式）**
 
-![image-20191226210942873](/Users/ricardo/Library/Application Support/typora-user-images/image-20191226210942873.png)
+![image-20191226210942873](https://pic3.zhimg.com/80/v2-8ca010d65aa8e4c385a901fb2e91f31a_1440w.jpg)
 
 > 点对点模式通常是基于拉取或者轮询的消息传送模型，这个模型的特点是发送到队列的消息被一个且只有一个消费者进行处理。生产者将消息放入消息队列后，由消费者主动的去拉取消息进行消费。点对点模型的优点是消费者拉取消息的频率可以由自己控制。但是消息队列是否有消息需要消费，在消费者端无法感知，所以在消费者端需要额外的线程去监控。
 
 **二、发布订阅模式**
 
-![image-20191226211754863](/Users/ricardo/Library/Application Support/typora-user-images/image-20191226211754863.png)
+![image-20191226211754863](https://pic4.zhimg.com/80/v2-92c5c49e68a6213914936ed979c05c6b_1440w.jpg)
 
 >发布订阅模式是一个基于消息推送的消息传送模型，该模型可以有多种不同的订阅者。生产者将消息放入消息队列后，队列会将该消息推送给订阅过该类消息的消费者（类似微信公众号）。由于消费者被动接收推送，所以无需感知消息队列是否有待消费的消息！但consumer1、consumer2、consumer3由于机器性能不一样，所以处理消息的能力也会不一样，但消息队列却无法感知消费者消费的速度！所以推送的速度成了发布订阅者模式的一个问题！假设三个消费者的处理速度分别是8M/s、5M/s、2M/s，如果队列推送的速度为5M/s，则consumer3无法承受！如果队列推送的速度为2M/s，则consumer1、consumer2会出现资源的极大浪费！
 
@@ -40,7 +40,7 @@ tags: kafak
 
 显然要构建一个大数据下消息队列，两种模式都是必需的。因此kafka引入了ConsumerGroup（消费组）的概念，Consumer Group是以发布订阅模式工作的；一个Consumer Group中可以有多个Consumer，Group内的Consumer以点对点模式工作。
 
-![image-20191228151527931](/Users/ricardo/Library/Application Support/typora-user-images/image-20191228151527931.png)
+![image-20191228151527931](https://lotabout.me/2018/kafka-introduction/kafka-consumer-group.svg)
 
 <h3>3.Kafka基础架构及术语</h3>
 **kafka是一种高吞吐量的分布式发布订阅消息系统**，它可以处理消费者规模的网站中的所有动作流数据。具有：
@@ -51,7 +51,7 @@ tags: kafak
 * 耐久性
 * 可扩展性
 
-![image-20191228135443219](/Users/ricardo/Library/Application Support/typora-user-images/image-20191228135443219.png)
+![image-20191228135443219](https://pic1.zhimg.com/80/v2-4692429e9184ed4a93911fa3a1361d28_1440w.jpg)
 
 **相关概念：**
 
@@ -73,11 +73,11 @@ tags: kafak
 
 Producer在写入数据时**永远的找Leader**，不会直接将数据写入Follower。写入的流程如下图：
 
-![image-20191228142209444](/Users/ricardo/Library/Application Support/typora-user-images/image-20191228142209444.png)
+![image-20191228142209444](https://pic2.zhimg.com/80/v2-b7e72e9c5b9971e89ec174a2c2201ed9_1440w.jpg)
 
 需要注意的一点：消息写入Leader后，follower是主动的去leader同步的！Producer采用push模式将数据发布到broker，每条消息追加到分区中，顺序写入磁盘，所以保证**同一分区**内的数据是有序的！
 
-![image-20191228142638781](/Users/ricardo/Library/Application Support/typora-user-images/image-20191228142638781.png)
+![image-20191228142638781](https://pic3.zhimg.com/80/v2-87d558aaa349bf920711b9c157e11f6a_1440w.jpg)
 
 上面说到数据会写入不同的分区，kafka分区的主要目的是：
 
@@ -108,7 +108,7 @@ Producer在写入数据时**永远的找Leader**，不会直接将数据写入Fo
 
 topic可以分为一个或多个partition，partition在服务器上的表现形式就是一个一个的文件夹，每个partition的文件夹下面会有多组segment文件，每组segment文件又包含.index文件、.log文件、.timeindex文件（早起版本中没有）三个文件，log文件实际上就是存储message的地方，而index和timeindex文件为索引文件，用于检索消息。
 
-![image-20191228144748824](/Users/ricardo/Library/Application Support/typora-user-images/image-20191228144748824.png)
+![image-20191228144748824](https://pic4.zhimg.com/80/v2-72e50c12fd9c6fbf58d3b5ca14c90623_1440w.jpg)
 
 如上图，这个partition有三组segment文件，每个log文件大小是一样的，但是存储message数量不一定相等的（每条message大小不一致）。文件的命名就是以该segment最小offset来命名的，如000.index存储offset为0~368795的消息，kafka就是利用分段+索引的方式来解决查找效率的问题。
 
@@ -139,7 +139,7 @@ topic可以分为一个或多个partition，partition在服务器上的表现形
 
 多个消费者可以组成一个消费者组（Consumer Group），每个消费者组都有一个组id！同一个Consumer Group下的Consumer可以消费同一个topic下不同partition的数据，但是不会组内多个Consumer消费同一个partition的数据。
 
-![image-20191228152107909](/Users/ricardo/Library/Application Support/typora-user-images/image-20191228152107909.png)
+![image-20191228152107909](https://pic4.zhimg.com/80/v2-75a79cba9cfafe5c2f4d5349acb72207_1440w.jpg)
 
 图示是Consumer Group内的Consumer小于partition数量的情况，所以会出现某个Consumer消费多个partition数据的情况，消费的速度也就不及只处理一个partition的Consumer的处理速度！如果Consumer Group的Consumer多于Partition的数量，那会不会出现多个Consumer消费同一个partition的数据呢？上面已经提到不会出现这种情况！多出来的Consumer不消费任何partition的数据。所以在实际的应用中，建议**Consumer Group的Consumer数量于Partition的数量一致！**
 
@@ -149,7 +149,7 @@ topic可以分为一个或多个partition，partition在服务器上的表现形
 
 假如现在需要查找一个offset为368801的message是什么样的过程？
 
-![image-20191228152622924](/Users/ricardo/Library/Application Support/typora-user-images/image-20191228152622924.png)
+![image-20191228152622924](https://pic1.zhimg.com/80/v2-87051d884344edf9f8fd97a3dacb32d0_1440w.jpg)
 
 1. 先找到offset为368801的message所在的segment文件（利用二分查找），在这里找到的就是第二个segment文件。
 2. 打开找到的segment中的.index文件（也就是368796.index文件，该文件起始偏移量为368796+1，我们要查找offset为368801的message在该index内的偏移量为368796+5  = 368801，所以这里要查找的**相对offset**为5）。由于该文件采用的是稀疏索引的方式存储着相对offset及对应message物理偏移量的关系，所以直接找相对offset为5的索引找不到，这里同样利用二分法查找相对offset小于或者等于指定的相对offset的索引条目中最大的那个相对offset，所以找到的是相对offset为4的那个索引
@@ -162,7 +162,7 @@ topic可以分为一个或多个partition，partition在服务器上的表现形
 <h3>参考</h3>
 * 稀疏索引
 
-  ![image-20191228154725250](/Users/ricardo/Library/Application Support/typora-user-images/image-20191228154725250.png)
+  ![GhnHHg.png](https://s1.ax1x.com/2020/04/08/GhnHHg.png)
 
 
 
@@ -206,7 +206,7 @@ zookeeper是一个分布式的协调组件，早起版本kafka用zk做meta信息
 
 **4.kafka follower如何与leader同步数据**
 
-![image-20191229184639460](/Users/ricardo/Library/Application Support/typora-user-images/image-20191229184639460.png)
+![](https://img-blog.csdnimg.cn/20190425101924979.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NoZWVwODUyMQ==,size_16,color_FFFFFF,t_70)
 
 kafka的复制既不是完全的同步复制，也不是单纯的异步复制。
 
