@@ -89,18 +89,18 @@
 <meta property="og:site_name" content="RicardoXu博客">
 <meta property="og:description" content="1. ArrayList 和LinkedList异同 是否保证线程安全：ArrayList和LinkedList都是不同步的，也就是不保证线程安全 底层数据结构：ArrayList底层使用的是Object数组，LinkedList底层使用的是双向链表数据结构（JDK1.6之前为循环链表，JDK1.7取消了循环）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://images.cnitblog.com/blog/556852/201308/17200016-b868ad987c4947ceb76c42b44887c783.png">
-<meta property="og:image" content="http://yoursite.com/Users/ricardo/Library/Application%20Support/typora-user-images/image-20200105194913491.png">
-<meta property="og:image" content="http://yoursite.com/Users/ricardo/Library/Application%20Support/typora-user-images/image-20200105194953598.png">
-<meta property="og:image" content="http://yoursite.com/Users/ricardo/Library/Application%20Support/typora-user-images/image-20200105202437786.png">
-<meta property="og:image" content="http://yoursite.com/Users/ricardo/Library/Application%20Support/typora-user-images/image-20200105204126728.png">
-<meta property="og:image" content="http://yoursite.com/Users/ricardo/Library/Application%20Support/typora-user-images/image-20200105204142062.png">
-<meta property="og:image" content="http://yoursite.com/Users/ricardo/Library/Application%20Support/typora-user-images/image-20200105204217831.png">
-<meta property="og:updated_time" content="2020-04-16T08:04:49.115Z">
+<meta property="og:image" content="http://images.cnitblog.com/blog/556852/201308/17200016-b868ad987c4947ceb76c42b44887c783.png">
+<meta property="og:image" content="https://img-blog.csdn.net/20170820205050092?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdGlhbnl1eGluZ3h1YW4=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-6/jdk1.8%E4%B9%8B%E5%89%8D%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84-HashMap.jpg">
+<meta property="og:image" content="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-6/JDK1.8%E4%B9%8B%E5%90%8E%E7%9A%84HashMap%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.jpg">
+<meta property="og:image" content="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-6/HashTable%E5%85%A8%E8%A1%A8%E9%94%81.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/1024555/201705/1024555-20170514174100832-1891630860.png">
+<meta property="og:image" content="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-6/JDK1.8-ConcurrentHashMap-Structure.jpg">
+<meta property="og:updated_time" content="2020-04-16T09:54:37.604Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java集合框架">
 <meta name="twitter:description" content="1. ArrayList 和LinkedList异同 是否保证线程安全：ArrayList和LinkedList都是不同步的，也就是不保证线程安全 底层数据结构：ArrayList底层使用的是Object数组，LinkedList底层使用的是双向链表数据结构（JDK1.6之前为循环链表，JDK1.7取消了循环）">
-<meta name="twitter:image" content="https://images.cnitblog.com/blog/556852/201308/17200016-b868ad987c4947ceb76c42b44887c783.png">
+<meta name="twitter:image" content="http://images.cnitblog.com/blog/556852/201308/17200016-b868ad987c4947ceb76c42b44887c783.png">
 
 
 
@@ -314,7 +314,7 @@
 <li><strong>是否保证线程安全</strong>：ArrayList和LinkedList都是不同步的，也就是不保证线程安全</li>
 <li><strong>底层数据结构</strong>：ArrayList底层使用的是Object数组，LinkedList底层使用的是双向链表数据结构（JDK1.6之前为循环链表，JDK1.7取消了循环）</li>
 </ul>
-<p><img src="https://images.cnitblog.com/blog/556852/201308/17200016-b868ad987c4947ceb76c42b44887c783.png" alt><br><a id="more"></a></p>
+<p><img src="http://images.cnitblog.com/blog/556852/201308/17200016-b868ad987c4947ceb76c42b44887c783.png" alt><br><a id="more"></a></p>
 <ul>
 <li><strong>插入和删除是否受元素位置的影响：</strong><ul>
 <li>ArrayList采用数组存储，所以插入和删除元素的时间复杂度受元素位置影响，时间复杂度近似O(n)</li>
@@ -353,6 +353,17 @@
 <blockquote>
 <p><strong>所谓扰动函数指的就是</strong> <strong>HashMap</strong> <strong>的</strong> <strong>hash</strong> <strong>方法。使用</strong> <strong>hash</strong> <strong>方法也就是扰动函数是为了防止一些实现比较差的</strong>hashCode() <strong>方法 ,换句话说使用扰动函数之后可以减少碰撞。</strong></p>
 </blockquote>
+<p>总结一下map.put后的过程：</p>
+<blockquote>
+<p>当向 HashMap 中 put 一对键值时，它会根据 key的 hashCode 值计算出一个位置， 该位置就是此对象准备往数组中存放的位置。</p>
+<ul>
+<li>如果该位置没有对象存在，就将此对象直接放进数组当中</li>
+<li>如果该位置已经有对象存在了，则顺着此存在的对象的链开始迭代(为了判断是否值相同，map不允许<key,value>键值对重复)。在迭代的过程中，使用equals()方法来检查key是否相等。</key,value></li>
+<li>如果迭代时equals()方法返回true，它就会用当前Entry的value来替换之前的value（覆盖旧值）。</li>
+<li>如果返回false就一直到Entry-&gt;next是null，把当前的Entry对象变成链表的下一个节点。（jdk1.7及之前是把新元素插入链表首节点）</li>
+</ul>
+</blockquote>
+<p><img src="https://img-blog.csdn.net/20170820205050092?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdGlhbnl1eGluZ3h1YW4=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt></p>
 <p><strong>JDK 1.8 HashMap</strong> <strong>的</strong> <strong>hash</strong> <strong>方法源码</strong></p>
 <p>JDK 1.8 的hash方法相比于 JDK 1.7 hash方法更加简化，但是原理不变。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123; </span><br><span class="line">  <span class="keyword">int</span> h; </span><br><span class="line">  <span class="comment">// key.hashCode()：返回散列值也就是hashcode </span></span><br><span class="line">  <span class="comment">// ^ ：按位异或 </span></span><br><span class="line">  <span class="comment">// &gt;&gt;&gt;:无符号右移，忽略符号位，空位都以0补齐 </span></span><br><span class="line">  <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -362,9 +373,9 @@
 <blockquote>
 <p>所谓 <strong>“拉链法”</strong> 就是：将链表和数组相结合。也就是说创建一个链表数组，数组中每一格就是一个链表。若遇到哈希冲突，则将冲突的值加到链表中即可。</p>
 </blockquote>
-<p><img src="/Users/ricardo/Library/Application Support/typora-user-images/image-20200105194913491.png" alt="image-20200105194913491"></p>
+<p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-6/jdk1.8%E4%B9%8B%E5%89%8D%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84-HashMap.jpg" alt="image-20200105194913491"></p>
 <h4 id="JDK1-8之后"><a href="#JDK1-8之后" class="headerlink" title="JDK1.8之后"></a>JDK1.8之后</h4><p>相比于之前的版本， JDK1.8之后在解决哈希冲突时有了较大的变化，当链表长度大于阈值（默认为8）时，将链表转化为红黑树，以减少搜索时间。</p>
-<p><img src="/Users/ricardo/Library/Application Support/typora-user-images/image-20200105194953598.png" alt="image-20200105194953598"></p>
+<p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-6/JDK1.8%E4%B9%8B%E5%90%8E%E7%9A%84HashMap%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.jpg" alt></p>
 <blockquote>
 <p>TreeMap、TreeSet以及JDK1.8之后的HashMap底层都用到了红黑树。红黑树就是为了解决二叉查找树的缺</p>
 <p>陷，因为二叉查找树在某些情况下会退化成一个线性结构。</p>
@@ -392,8 +403,44 @@
 <p>8）时，将链表转化为红黑树，以减少搜索时间。Hashtable 没有这样的机制。</p>
 <h3 id="5-HashMap的长度为什么是2的幂次方"><a href="#5-HashMap的长度为什么是2的幂次方" class="headerlink" title="5.HashMap的长度为什么是2的幂次方"></a>5.HashMap的长度为什么是2的幂次方</h3><p>​        HashMap为了存取高效，要尽量较少碰撞，就是要尽量把数据分配均匀，每个链表长度大致相同，这个实现就在把数据存到哪个链表中的算法。<br>​        这个算法实际就是取模，<code>hash%length</code>，计算机中直接求余效率不如位移运算，源码中做了优化<code>hash&amp;(length-1)</code>，<code>hash%length</code>==<code>hash&amp;(length-1)</code>的前提是length是2的n次方；这就解释了<code>HashMap</code>的长度为什么是2的幂次方。</p>
 <h3 id="6-HashSet和HashMap的区别"><a href="#6-HashSet和HashMap的区别" class="headerlink" title="6.HashSet和HashMap的区别"></a>6.HashSet和HashMap的区别</h3><p>如果你看过HashSet源码就应该知道：HashSet底层就是基于HashMap实现到。（HashSet源码非常非常少，因为除了clone()方法、writeObject()方法、readObject()方法是HashSet自己不得不实现之外，其他方法都是直接调用HashMap中的方法。）</p>
-<p><img src="/Users/ricardo/Library/Application Support/typora-user-images/image-20200105202437786.png" alt="image-20200105202437786"></p>
-<h3 id="7-ConcurrentHashMap和HashTable的区别"><a href="#7-ConcurrentHashMap和HashTable的区别" class="headerlink" title="7.ConcurrentHashMap和HashTable的区别"></a>7.ConcurrentHashMap和HashTable的区别</h3><ul>
+<table>
+<thead>
+<tr>
+<th>HashMap</th>
+<th>HashSet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>实现了Map接口</td>
+<td>实现set接口</td>
+</tr>
+<tr>
+<td>存储键值对</td>
+<td>仅存储对象</td>
+</tr>
+<tr>
+<td>调用 <code>put()</code>向map中添加元素</td>
+<td>调用 <code>add()</code>方法向Set中添加元素</td>
+</tr>
+<tr>
+<td>HashMap使用键（Key）计算Hashcode</td>
+<td>HashSet使用成员对象来计算hashcode值，对于两个对象来说hashcode可能相同，所以equals()方法用来判断对象的相等性</td>
+</tr>
+</tbody>
+</table>
+<h3 id="7-HashMap线程安全问题"><a href="#7-HashMap线程安全问题" class="headerlink" title="7.HashMap线程安全问题"></a>7.HashMap线程安全问题</h3><h4 id="7-1-resize机制"><a href="#7-1-resize机制" class="headerlink" title="7.1 resize机制"></a>7.1 resize机制</h4><p>HashMap的扩容机制就是重新申请一个容量是当前的2倍的桶数组，然后将原先的记录逐个重新映射到新的桶里面，然后将原先的桶逐个置为null使得引用失效。后面会讲到，HashMap之所以线程不安全，就是resize这里出的问题。</p>
+<h4 id="7-2-为什么hashMap线程不安全"><a href="#7-2-为什么hashMap线程不安全" class="headerlink" title="7.2 为什么hashMap线程不安全"></a>7.2 为什么hashMap线程不安全</h4><h5 id="（1-在jdk1-7中，在多线程环境下，扩容时会造成环形链或数据丢失。所以在jdk1-8后进行了优化，发生hash冲突时，不再采用头插法，而是直接插入到链表尾部"><a href="#（1-在jdk1-7中，在多线程环境下，扩容时会造成环形链或数据丢失。所以在jdk1-8后进行了优化，发生hash冲突时，不再采用头插法，而是直接插入到链表尾部" class="headerlink" title="（1) 在jdk1.7中，在多线程环境下，扩容时会造成环形链或数据丢失。所以在jdk1.8后进行了优化，发生hash冲突时，不再采用头插法，而是直接插入到链表尾部"></a>（1) 在jdk1.7中，在多线程环境下，扩容时会造成环形链或数据丢失。所以在jdk1.8后进行了优化，发生hash冲突时，不再采用头插法，而是直接插入到链表尾部</h5><h5 id="2-在jdk1-8中，多线程情况下，会发生数据覆盖的情况"><a href="#2-在jdk1-8中，多线程情况下，会发生数据覆盖的情况" class="headerlink" title="(2) 在jdk1.8中，多线程情况下，会发生数据覆盖的情况"></a>(2) 在jdk1.8中，多线程情况下，会发生数据覆盖的情况</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="keyword">null</span>) <span class="comment">// 如果没有hash碰撞则直接插入元素</span></span><br><span class="line">            tab[i] = newNode(hash, key, value, <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+<p>这是jdk1.8中HashMap中put操作的主函数， 注意第6行代码，<strong>如果没有hash碰撞则会直接插入元素</strong>。</p>
+<p>如果线程A和线程B同时进行put操作，刚好这两条不同的数据hash值一样，并且该位置数据为null，所以这线程A、B都会进入这行代码中。</p>
+<p>假设这种情况：</p>
+<ul>
+<li>线程A进入后还未进行数据插入时挂起</li>
+<li>线程B正常执行，从而正常插入数据</li>
+<li>然后线程A获取CPU时间片，此时线程A不用再进行hash判断了</li>
+<li>问题出现：<strong>线程A会把线程B插入的数据给覆盖，发生线程不安全</strong>。</li>
+</ul>
+<h3 id="8-ConcurrentHashMap和HashTable的区别"><a href="#8-ConcurrentHashMap和HashTable的区别" class="headerlink" title="8.ConcurrentHashMap和HashTable的区别"></a>8.ConcurrentHashMap和HashTable的区别</h3><ul>
 <li><p><strong>底层数据结构：</strong>JDK1.7以前的<code>ConcurrentHashMap</code>底层采用 <strong>分段的数组+链表</strong>实现，JDK1.8采用的数据结构跟HashMap1.8的结构一样，数组+链表/红黑二叉树。HashTable和JDK1.8之前的HashMap的底层数据结构类似都是采用 <strong>数组+链表</strong> 的形式，数组是HashMap的主体，链表则是为了解决哈希冲突而存在的。</p>
 </li>
 <li><p><strong>实现线程安全的方式（重要）：</strong></p>
@@ -404,17 +451,20 @@
 </li>
 </ul>
 <p>  <strong>两者的对比图：</strong></p>
-<p>  <img src="/Users/ricardo/Library/Application Support/typora-user-images/image-20200105204126728.png" alt="image-20200105204126728"></p>
-<p>  <img src="/Users/ricardo/Library/Application Support/typora-user-images/image-20200105204142062.png" alt="image-20200105204142062"></p>
-<p>  <img src="/Users/ricardo/Library/Application Support/typora-user-images/image-20200105204217831.png" alt="image-20200105204217831"></p>
-<h3 id="8-ConcurrentHashMap线程安全的具体实现方式-底层具体实现"><a href="#8-ConcurrentHashMap线程安全的具体实现方式-底层具体实现" class="headerlink" title="8.ConcurrentHashMap线程安全的具体实现方式/底层具体实现"></a>8.ConcurrentHashMap线程安全的具体实现方式/底层具体实现</h3><h4 id="JDK1-7（参考上面示意图）"><a href="#JDK1-7（参考上面示意图）" class="headerlink" title="JDK1.7（参考上面示意图）"></a>JDK1.7（参考上面示意图）</h4><p>首先将数据分为一段一段的存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一个段数据时，其他段的数据也能被其他线程访问。</p>
+<p>  <strong>HashTable:</strong></p>
+<p>  <img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-6/HashTable%E5%85%A8%E8%A1%A8%E9%94%81.png" alt></p>
+<p>  <strong>JDK1.7的ConcurrentHashMap：</strong></p>
+<p>  <img src="https://images2015.cnblogs.com/blog/1024555/201705/1024555-20170514174100832-1891630860.png" alt></p>
+<p>  <strong>JDK1.8的ConcurrentHashMap（TreeBin: 红黑二叉树节点 Node: 链表节点）：</strong></p>
+<p>  <img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-6/JDK1.8-ConcurrentHashMap-Structure.jpg" alt></p>
+<h3 id="9-ConcurrentHashMap线程安全的具体实现方式-底层具体实现"><a href="#9-ConcurrentHashMap线程安全的具体实现方式-底层具体实现" class="headerlink" title="9.ConcurrentHashMap线程安全的具体实现方式/底层具体实现"></a>9.ConcurrentHashMap线程安全的具体实现方式/底层具体实现</h3><h4 id="JDK1-7（参考上面示意图）"><a href="#JDK1-7（参考上面示意图）" class="headerlink" title="JDK1.7（参考上面示意图）"></a>JDK1.7（参考上面示意图）</h4><p>首先将数据分为一段一段的存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一个段数据时，其他段的数据也能被其他线程访问。</p>
 <p><strong>ConcurrentHashMap是由Segment数组结构和HashEntry数组结构组成。</strong></p>
 <p>Segment实现了ReentrantLock，所以Segment是一种可重入锁，扮演锁定角色。HashEntry用于存储键值对数据。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Segment</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">ReentrantLock</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>一个ConcurrentHashMap包含一个Segment数组。Segment的结构和HashMap类似，是一种数组加链表结构，一个Segment包含一个HashEntry数组，每个HashEntry是一个链表结构元素，每个Segment守护着HashEntry数组里的元素，当对HashEntry数组里的数据进行修改时，必须首先获得对应的Segment锁。</p>
 <h4 id="JDK1-8（参考上面示意图）"><a href="#JDK1-8（参考上面示意图）" class="headerlink" title="JDK1.8（参考上面示意图）"></a>JDK1.8（参考上面示意图）</h4><p>ConcurrentHashMap取消了Segment分段锁，采用CAS和synchronized来保证并发安全。数据结构和HashMap 1.8的结构类似，数组+ 链表/红黑二叉树。</p>
 <p>synchronized只锁定当前链表或者红黑二叉树的首节点，这样只要hash不冲突，就不会产生并发，效率提升N倍。</p>
-<h3 id="9-集合框架底层数据结构总结"><a href="#9-集合框架底层数据结构总结" class="headerlink" title="9.集合框架底层数据结构总结"></a>9.集合框架底层数据结构总结</h3><h4 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h4><p><strong>1.List</strong></p>
+<h3 id="10-集合框架底层数据结构总结"><a href="#10-集合框架底层数据结构总结" class="headerlink" title="10.集合框架底层数据结构总结"></a>10.集合框架底层数据结构总结</h3><h4 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h4><p><strong>1.List</strong></p>
 <ul>
 <li><strong>ArrayList：</strong>Object数组</li>
 <li><strong>Vector:</strong> Object数组</li>
@@ -606,7 +656,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-ArrayList-和LinkedList异同"><span class="nav-number">1.</span> <span class="nav-text">1. ArrayList 和LinkedList异同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-ArrayList-与-Vector-区别"><span class="nav-number">2.</span> <span class="nav-text">2. ArrayList 与 Vector 区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-HashMap的底层实现"><span class="nav-number">3.</span> <span class="nav-text">3.HashMap的底层实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JDK1-8之前"><span class="nav-number">3.1.</span> <span class="nav-text">JDK1.8之前</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JDK1-8之后"><span class="nav-number">3.2.</span> <span class="nav-text">JDK1.8之后</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-HashMap和HashTable的区别"><span class="nav-number">4.</span> <span class="nav-text">4.HashMap和HashTable的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-HashMap的长度为什么是2的幂次方"><span class="nav-number">5.</span> <span class="nav-text">5.HashMap的长度为什么是2的幂次方</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-HashSet和HashMap的区别"><span class="nav-number">6.</span> <span class="nav-text">6.HashSet和HashMap的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-ConcurrentHashMap和HashTable的区别"><span class="nav-number">7.</span> <span class="nav-text">7.ConcurrentHashMap和HashTable的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-ConcurrentHashMap线程安全的具体实现方式-底层具体实现"><span class="nav-number">8.</span> <span class="nav-text">8.ConcurrentHashMap线程安全的具体实现方式/底层具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JDK1-7（参考上面示意图）"><span class="nav-number">8.1.</span> <span class="nav-text">JDK1.7（参考上面示意图）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JDK1-8（参考上面示意图）"><span class="nav-number">8.2.</span> <span class="nav-text">JDK1.8（参考上面示意图）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-集合框架底层数据结构总结"><span class="nav-number">9.</span> <span class="nav-text">9.集合框架底层数据结构总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Collection"><span class="nav-number">9.1.</span> <span class="nav-text">Collection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map"><span class="nav-number">9.2.</span> <span class="nav-text">Map</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-ArrayList-和LinkedList异同"><span class="nav-number">1.</span> <span class="nav-text">1. ArrayList 和LinkedList异同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-ArrayList-与-Vector-区别"><span class="nav-number">2.</span> <span class="nav-text">2. ArrayList 与 Vector 区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-HashMap的底层实现"><span class="nav-number">3.</span> <span class="nav-text">3.HashMap的底层实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JDK1-8之前"><span class="nav-number">3.1.</span> <span class="nav-text">JDK1.8之前</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JDK1-8之后"><span class="nav-number">3.2.</span> <span class="nav-text">JDK1.8之后</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-HashMap和HashTable的区别"><span class="nav-number">4.</span> <span class="nav-text">4.HashMap和HashTable的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-HashMap的长度为什么是2的幂次方"><span class="nav-number">5.</span> <span class="nav-text">5.HashMap的长度为什么是2的幂次方</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-HashSet和HashMap的区别"><span class="nav-number">6.</span> <span class="nav-text">6.HashSet和HashMap的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-HashMap线程安全问题"><span class="nav-number">7.</span> <span class="nav-text">7.HashMap线程安全问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-resize机制"><span class="nav-number">7.1.</span> <span class="nav-text">7.1 resize机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-为什么hashMap线程不安全"><span class="nav-number">7.2.</span> <span class="nav-text">7.2 为什么hashMap线程不安全</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1-在jdk1-7中，在多线程环境下，扩容时会造成环形链或数据丢失。所以在jdk1-8后进行了优化，发生hash冲突时，不再采用头插法，而是直接插入到链表尾部"><span class="nav-number">7.2.1.</span> <span class="nav-text">（1) 在jdk1.7中，在多线程环境下，扩容时会造成环形链或数据丢失。所以在jdk1.8后进行了优化，发生hash冲突时，不再采用头插法，而是直接插入到链表尾部</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-在jdk1-8中，多线程情况下，会发生数据覆盖的情况"><span class="nav-number">7.2.2.</span> <span class="nav-text">(2) 在jdk1.8中，多线程情况下，会发生数据覆盖的情况</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-ConcurrentHashMap和HashTable的区别"><span class="nav-number">8.</span> <span class="nav-text">8.ConcurrentHashMap和HashTable的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-ConcurrentHashMap线程安全的具体实现方式-底层具体实现"><span class="nav-number">9.</span> <span class="nav-text">9.ConcurrentHashMap线程安全的具体实现方式/底层具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JDK1-7（参考上面示意图）"><span class="nav-number">9.1.</span> <span class="nav-text">JDK1.7（参考上面示意图）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JDK1-8（参考上面示意图）"><span class="nav-number">9.2.</span> <span class="nav-text">JDK1.8（参考上面示意图）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-集合框架底层数据结构总结"><span class="nav-number">10.</span> <span class="nav-text">10.集合框架底层数据结构总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Collection"><span class="nav-number">10.1.</span> <span class="nav-text">Collection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map"><span class="nav-number">10.2.</span> <span class="nav-text">Map</span></a></li></ol></li></ol></div>
             
 
           </div>
