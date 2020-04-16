@@ -9,8 +9,9 @@ tags: Java
 * **是否保证线程安全**：ArrayList和LinkedList都是不同步的，也就是不保证线程安全
 * **底层数据结构**：ArrayList底层使用的是Object数组，LinkedList底层使用的是双向链表数据结构（JDK1.6之前为循环链表，JDK1.7取消了循环）
 
-![](https://img-blog.csdn.net/20170809232651820)
+![](https://images.cnitblog.com/blog/556852/201308/17200016-b868ad987c4947ceb76c42b44887c783.png)
 <!--more-->
+
 * **插入和删除是否受元素位置的影响：**
   * ArrayList采用数组存储，所以插入和删除元素的时间复杂度受元素位置影响，时间复杂度近似O(n)
   * LinkedList采用链表存储，所以插入删除元素时间复杂度不受元素位置的影响，时间复杂度近似O(1)
